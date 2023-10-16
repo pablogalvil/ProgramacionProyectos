@@ -2,7 +2,8 @@ package unidad2;
 
 import java.util.Scanner;
 
-public class Ejemplo4Beca {
+public class Ejemplo4Beca 
+{
 	/**
 	 * El programa calcula la cuantía de la beca para un alumno Serán 6000 euros si
 	 * el alumno es menor de edad y la renta familiar menos de 20mil euros Serán un
@@ -12,7 +13,8 @@ public class Ejemplo4Beca {
 	 * @param args
 	 */
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		int edadAlumno = 0;
 		float rentaFamiliar = 0;
 		char esRefugiadoc = 'N';

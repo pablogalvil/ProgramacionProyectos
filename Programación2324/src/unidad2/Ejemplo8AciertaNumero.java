@@ -1,5 +1,7 @@
 package unidad2;
 
+import java.util.Scanner;
+
 public class Ejemplo8AciertaNumero {
 
 	/**
@@ -13,6 +15,11 @@ public class Ejemplo8AciertaNumero {
 	 */
 
 	public static void main(String[] args) {
+		
+		int numAleatorio = 0;
+		int num1,num2,num3=0;
+		
+		Scanner teclado=new Scanner(System.in);
 
 	}
 

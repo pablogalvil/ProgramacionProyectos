@@ -18,22 +18,11 @@ public class Ejemplo7Loteria {
 	 * @param args
 	 */
 
-	public static final int NUMEROS_COINCIDEN = 0;
-	public static final int NUMEROS_NO_COINCIDEN = 1;
-	public static final int NUMEROS_COINCIDEN2 = 2;
-	public static final int NUMEROS_NO_COINCIDEN2 = 3;
-
-	public static final int RESULTADO_GANADOR = 0;
-	public static final int RESULTADO_NO_GANADOR = 1;
-	public static final int RESULTADO_GANADOR2 = 2;
-	public static final int RESULTADO_NO_GANADOR2 = 3;
-
 	public static void main(String[] args) {
 
 		int num1 = 0;
 		int num2 = 0;
 		int loteria = 0;
-		int resultado = RESULTADO_NO_GANADOR;
 		String nom1 = "";
 		String nom2 = "";
 		Scanner teclado = new Scanner(System.in);
@@ -48,50 +37,24 @@ public class Ejemplo7Loteria {
 		System.out.print(nom2 + " por favor introduzca su número : ");
 		num2 = teclado.nextInt();
 
-		loteria = (int) (Math.random() * 2);
+		loteria = (int) (Math.random() * 15) + 1;
 
-		switch (num1) {
-		case NUMEROS_NO_COINCIDEN:
-			if (num1 != loteria) {
-				resultado = RESULTADO_NO_GANADOR;
-			}
-			break;
-		case NUMEROS_COINCIDEN:
-			if (num1 == loteria) {
-				resultado = RESULTADO_GANADOR;
-			}
-			break;
-		}
-		switch (num2) {
-		case NUMEROS_NO_COINCIDEN2:
-			if (num2 != loteria) {
-				resultado = RESULTADO_NO_GANADOR2;
-			}
-			break;
-		case NUMEROS_COINCIDEN2:
-			if (num2 == loteria) {
-				resultado = RESULTADO_GANADOR2;
-			}
-			break;
-		}
-
-		if (resultado == RESULTADO_NO_GANADOR && resultado == RESULTADO_NO_GANADOR2) {
-			System.out.println("Lo sentimos, " + nom1 + " y " + nom2 + " ninguno de ustedes ha consiguido el premio.");
-		} else {
-			if (resultado == RESULTADO_GANADOR && resultado == RESULTADO_NO_GANADOR2) {
-				System.out.println("¡Felicidades, " + nom1 + " usted ha ganado el premio!");
-				System.out.println("Lo sentimos, " + nom2 + " usted no ha tenido la misma suerte :(");
-			} else {
-				if (resultado == RESULTADO_GANADOR2 && resultado == RESULTADO_NO_GANADOR) {
-					System.out.println("¡Felicidades, " + nom2 + " usted ha ganado el premio!");
-					System.out.println("Lo sentimos, " + nom1 + " usted no ha tenido la misma suerte :(");
-				} else {
-					if (resultado == RESULTADO_GANADOR && resultado == RESULTADO_GANADOR2) {
-						System.out.println("¡Felicidades, " + nom1 + " y " + nom2 + " ambos han ganado el premio!");
+		if (loteria != num1 && loteria != num2) {
+			System.out.println("Lo sentimos " + nom1 + " y " + nom2 + " ustedes no han ganado el premio");
+		}else {
+			if (loteria == num1 && loteria != num2) {
+				System.out.println("¡Felicidades " + nom1 + " usted ha ganado el premio!");
+				System.out.println("Lo sentimos " + nom2 + " usted no ha tenido la misma suerte");
+			}else {
+				if (loteria != num1 && loteria == num2) {
+					System.out.println("¡Felicidades " + nom2 + " usted ha ganado el premio!");
+					System.out.println("Lo sentimos " + nom1 + " usted no ha tenido la misma suerte");
+				}else {
+					if (loteria == num1 && loteria == num2) {
+						System.out.println("¡Felicidades " + nom1 + " y " + nom2 + " ustedes han ganado el premio!");
 					}
 				}
 			}
-
 		}
 
 		teclado.close();

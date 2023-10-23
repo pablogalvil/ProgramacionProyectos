@@ -20,6 +20,12 @@ public class Ejemplo8AciertaNumero {
 		int num1,num2,num3=0;
 		
 		Scanner teclado=new Scanner(System.in);
+		
+		num1=2;
+		num2=4;
+		if (num3==0 && (num1>num2 || num3<num1)) {
+			System.out.println("HOLA");
+		}
 
 	}
 

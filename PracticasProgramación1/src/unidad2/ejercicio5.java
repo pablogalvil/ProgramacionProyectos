@@ -12,46 +12,29 @@ public class ejercicio5 {
 		Scanner teclado = new Scanner(System.in);
 		System.out.print("Introduce el primer número : ");
 		num1 = teclado.nextDouble();
-		System.out.print("Introduce el segundo número (0 en caso de raiz cuadrada) : ");
+		System.out.print("Introduce el segundo número : ");
 		num2 = teclado.nextDouble();
-		System.out.print("Introduce la operación (SUMA, RESTA, MULTIPLICACION, DIVISION, RESTO, RAIZ O POTENCIA) : ");
-		operacion = teclado.next();
-		operacion = operacion.toUpperCase();
+		System.out.print("Introduce el resultado : ");
+		resultado = teclado.nextDouble();
 
-		switch (operacion) {
-		case "SUMA":
-			resultado = num1 + num2;
-			System.out.println(resultado);
-			break;
-		case "RESTA":
-			resultado = num1 - num2;
-			System.out.println(resultado);
-			break;
-		case "MULTIPLICACION":
-			resultado = num1 * num2;
-			System.out.println(resultado);
-			break;
-		case "DIVISION":
-			resultado = num1 / num2;
-			System.out.println(resultado);
-			break;
-		case "RESTO":
-			resultado = num1 % num2;
-			System.out.println(resultado);
-			break;
-		case "RAIZ":
-			resultado = Math.sqrt(num1 + num2);
-			System.out.println(resultado);
-			break;
-		case "POTENCIA":
-			resultado = Math.pow(num1, num2);
-			System.out.println(resultado);
-			break;
-		default:
+		if (resultado == (num1 + num2)) {
+			System.out.println("Su operación es una suma");
+		} else if (resultado == (num1 - num2)) {
+			System.out.println("Su operación es una resta");
+		} else if (resultado == (num1 * num2)) {
+			System.out.println("Su operación es una multiplicación");
+		} else if (resultado == (num1 / num2)) {
+			System.out.println("Su operación es una división");
+		} else if (resultado == (num1 % num2)) {
+			System.out.println("Su operación es resto");
+		} else if (resultado == (Math.sqrt(num1))) {
+			System.out.println("Su operación es raíz cuadrada");
+		} else if (resultado == (Math.pow(num1, 2))) {
+			System.out.println("Su operación es potencia de dos");
+		} else {
 			System.out.println("Su operación es indefinida");
-			break;
 		}
-
+		teclado.close();
 	}
 
 }

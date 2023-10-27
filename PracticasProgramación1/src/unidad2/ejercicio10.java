@@ -35,6 +35,8 @@ public class ejercicio10 {
 
 		Scanner teclado = new Scanner(System.in);
 
+		System.out.print("Introduce tu comunidad autónoma : ");
+		comAuton = teclado.nextLine().toLowerCase();
 		System.out.print("Introduce tu edad : ");
 		edad = teclado.nextInt();
 		System.out.print("¿Está usted casado? (true o false) ");
@@ -43,8 +45,6 @@ public class ejercicio10 {
 		genero = teclado.next().toUpperCase();
 		rango = (genero.length() - 1);
 		sexo = genero.charAt(rango);
-		System.out.print("Introduce tu comunidad autónoma : ");
-		comAuton = teclado.next().toLowerCase();
 		System.out.print("¿Cuántos hijos tienes? ");
 		numHijos = teclado.nextInt();
 		System.out.print("Introduce tu sueldo anual : ");
@@ -61,19 +61,19 @@ public class ejercicio10 {
 		if (numHijos > 2 && sueldoAnual >= 60000) {
 			ayuda = (ayuda) + (sueldoAnual * 12) / 100;
 			System.out.println("Su ayuda será de " + ayuda + " euros anuales.");
-		} else if (numHijos > 2 && comAuton == "pais vasco") {
+		} else if (numHijos > 2 && comAuton.equals("pais vasco")) {
 			ayuda = (ayuda) + (sueldoAnual * 12) / 100;
 			System.out.println("Su ayuda será de " + ayuda + " euros anuales.");
-		} else if (numHijos > 2 && comAuton == "valencia") {
+		} else if (numHijos > 2 && comAuton.equals("valencia")) {
 			ayuda = (ayuda) + (sueldoAnual * 12) / 100;
 			System.out.println("Su ayuda será de " + ayuda + " euros anuales.");
-		} else if (comAuton == "cantabria" && sexo == 'M' && sueldoAnual >= 45000 && sueldoAnual <= 55000) {
+		} else if (comAuton.equals("cantabria0") && sexo == 'M' && sueldoAnual >= 45000 && sueldoAnual <= 55000) {
 			ayuda = (ayuda) + (sueldoAnual * 13) / 100;
 			System.out.println("Su ayuda será de " + ayuda + " euros anuales.");
-		} else if (comAuton == "andalucia" && sexo == 'M' && sueldoAnual >= 45000 && sueldoAnual <= 55000) {
+		} else if (comAuton.equals("andalucia") && sexo == 'M' && sueldoAnual >= 45000 && sueldoAnual <= 55000) {
 			ayuda = (ayuda) + (sueldoAnual * 13) / 100;
 			System.out.println("Su ayuda será de " + ayuda + " euros anuales.");
-		} else if (comAuton == "madrid" && sexo == 'M' && sueldoAnual >= 45000 && sueldoAnual <= 55000) {
+		} else if (comAuton.equals("madrid") && sexo == 'M' && sueldoAnual >= 45000 && sueldoAnual <= 55000) {
 			ayuda = (ayuda) + (sueldoAnual * 13) / 100;
 			System.out.println("Su ayuda será de " + ayuda + " euros anuales.");
 		} else {

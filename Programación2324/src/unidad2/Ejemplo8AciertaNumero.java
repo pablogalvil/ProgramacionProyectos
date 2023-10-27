@@ -16,15 +16,11 @@ public class Ejemplo8AciertaNumero {
 
 	public static void main(String[] args) {
 		
-		int numAleatorio = 0;
-		int num1,num2,num3=0;
+		//Random mas aleatorio que math.random
+		Random rand = new Random();
 		
-		Scanner teclado=new Scanner(System.in);
 		
-		num1=2;
-		num2=4;
-		if (num3==0 && (num1>num2 || num3<num1)) {
-			System.out.println("HOLA");
+		
 		}
 
 	}

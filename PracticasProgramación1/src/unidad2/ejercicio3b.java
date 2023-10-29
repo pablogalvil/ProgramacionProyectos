@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class ejercicio3b {
 
 	public static void main(String[] args) {
+		//Declaramos variables.
 		int num1 = 0;
 		int num2 = 0;
 		int num3 = 0;
@@ -14,6 +15,7 @@ public class ejercicio3b {
 		int resultado1 = 0;
 		int resultado2 = 0;
 
+		//Introducimos los números.
 		Scanner teclado = new Scanner(System.in);
 		System.out.print("Introduce el primer número : ");
 		num1 = teclado.nextInt();
@@ -24,6 +26,7 @@ public class ejercicio3b {
 		System.out.print("Introduce el cuarto número : ");
 		num4 = teclado.nextInt();
 
+		//Condicional para cada caso y usamos resultado para guardar los números.
 		if (num1 < num3 && num1 < num4 && num2 < num3 && num2 < num4) {
 			resultado1 = num1;
 			resultado2 = num2;
@@ -50,9 +53,11 @@ public class ejercicio3b {
 			System.out.println(num3 + " y " + num4 + " son los menores");
 		}
 
+		//Sacamos por pantalla si el número es par o impar.
 		System.out.println("Si el resto es 1, el número es impar, si es 0, el número es par");
 		System.out.print("El resto es : " + resultado1 % 2 + " y " + resultado2 % 2);
 
+		//Cerramos teclado.
 		teclado.close();
 
 	}

@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class ejercicio5 {
 
 	public static void main(String[] args) {
-		double num1, num2 = 0;
-		String operacion = "";
+		//Declaramos variables
+		double num1 = 0, num2 = 0;
 		double resultado = 0;
 
 		Scanner teclado = new Scanner(System.in);
@@ -17,6 +17,7 @@ public class ejercicio5 {
 		System.out.print("Introduce el resultado : ");
 		resultado = teclado.nextDouble();
 
+		//Condicional para cada tipo de operación.
 		if (resultado == (num1 + num2)) {
 			System.out.println("Su operación es una suma");
 		} else if (resultado == (num1 - num2)) {
@@ -27,6 +28,7 @@ public class ejercicio5 {
 			System.out.println("Su operación es una división");
 		} else if (resultado == (num1 % num2)) {
 			System.out.println("Su operación es resto");
+		//Para la raíz cuadrada y la potencia solo cojo el primer número.
 		} else if (resultado == (Math.sqrt(num1))) {
 			System.out.println("Su operación es raíz cuadrada");
 		} else if (resultado == (Math.pow(num1, 2))) {
@@ -34,6 +36,8 @@ public class ejercicio5 {
 		} else {
 			System.out.println("Su operación es indefinida");
 		}
+		
+		//Cierro teclado.
 		teclado.close();
 	}
 

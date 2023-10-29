@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class ejercicio6 {
 
+	//Declaramos los case para el switch
 	public static final int LUNES = 1;
 	public static final int MARTES = 2;
 	public static final int MIERCOLES = 3;
@@ -14,12 +15,14 @@ public class ejercicio6 {
 
 	public static void main(String[] args) {
 
+		//Declaramos variables.
 		int dia = 0;
 
 		Scanner teclado = new Scanner(System.in);
 		System.out.print("Introduce el dia (1 para lunes, 2 para martes, etc) : ");
 		dia = teclado.nextInt();
 
+		//Condicional para el dia de la semana.
 		switch (dia) {
 		case LUNES:
 			System.out.println("Hoy es Lunes");
@@ -46,6 +49,7 @@ public class ejercicio6 {
 			System.out.println("El dia que ha establecido no es válido");
 		}
 
+		//Cerramos teclado.
 		teclado.close();
 
 	}

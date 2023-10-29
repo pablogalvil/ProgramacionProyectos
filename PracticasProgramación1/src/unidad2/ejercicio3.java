@@ -5,11 +5,13 @@ import java.util.Scanner;
 public class ejercicio3 {
 
 	public static void main(String[] args) {
+		//Declaramos variables.
 		int num1=0;
 		int num2=0;
 		int num3=0;
 		int num4=0;
 		
+		//Introducimos los números.
 		Scanner teclado=new Scanner(System.in);
 		System.out.print("Introduce el primer número : ");
 		num1=teclado.nextInt();
@@ -20,6 +22,7 @@ public class ejercicio3 {
 		System.out.print("Introduce el cuarto número : ");
 		num4=teclado.nextInt();
 		
+		//Condicional para cada caso.
 		if (num1>num2 && num1>num3 && num1>num4) {
 			System.out.println("El primer número, " + num1 + " es el mayor");
 		}else if (num2>num1 && num2>num3 && num2>num4) {
@@ -30,6 +33,7 @@ public class ejercicio3 {
 			System.out.println("El cuarto número, " + num4 + " es el mayor");
 		}
 		
+		//Cerramos teclado.
 		teclado.close();
 
 	}

@@ -23,6 +23,7 @@ public class ejercicio10 {
 	 */
 
 	public static void main(String[] args) {
+		//Declaramos variables
 		int edad = 0;
 		boolean estaCasado = false;
 		String genero = "";
@@ -35,6 +36,7 @@ public class ejercicio10 {
 
 		Scanner teclado = new Scanner(System.in);
 
+		//nextLine arriba porque no puede llevar encima un nextInt.
 		System.out.print("Introduce tu comunidad autónoma : ");
 		comAuton = teclado.nextLine().toLowerCase();
 		System.out.print("Introduce tu edad : ");
@@ -42,6 +44,8 @@ public class ejercicio10 {
 		System.out.print("¿Está usted casado? (true o false) ");
 		estaCasado = teclado.nextBoolean();
 		System.out.print("Introduce tu sexo (H/M) : ");
+		//Usamos .lenght para poder sacar la letra.
+		//El -1 es porque el lenght no empieza en 0.
 		genero = teclado.next().toUpperCase();
 		rango = (genero.length() - 1);
 		sexo = genero.charAt(rango);
@@ -50,6 +54,7 @@ public class ejercicio10 {
 		System.out.print("Introduce tu sueldo anual : ");
 		sueldoAnual = teclado.nextDouble();
 
+		//Condicional para plus 1 y 2 respectivamente.
 		if (estaCasado == true && numHijos > 3) {
 			ayuda = ayuda + 1200;
 		}
@@ -58,6 +63,7 @@ public class ejercicio10 {
 			ayuda = ayuda + 2000;
 		}
 
+		//Condicional para saber la ayuda que le pertenece
 		if (numHijos > 2 && sueldoAnual >= 60000) {
 			ayuda = (ayuda) + (sueldoAnual * 12) / 100;
 			System.out.println("Su ayuda será de " + ayuda + " euros anuales.");
@@ -67,7 +73,7 @@ public class ejercicio10 {
 		} else if (numHijos > 2 && comAuton.equals("valencia")) {
 			ayuda = (ayuda) + (sueldoAnual * 12) / 100;
 			System.out.println("Su ayuda será de " + ayuda + " euros anuales.");
-		} else if (comAuton.equals("cantabria0") && sexo == 'M' && sueldoAnual >= 45000 && sueldoAnual <= 55000) {
+		} else if (comAuton.equals("cantabria") && sexo == 'M' && sueldoAnual >= 45000 && sueldoAnual <= 55000) {
 			ayuda = (ayuda) + (sueldoAnual * 13) / 100;
 			System.out.println("Su ayuda será de " + ayuda + " euros anuales.");
 		} else if (comAuton.equals("andalucia") && sexo == 'M' && sueldoAnual >= 45000 && sueldoAnual <= 55000) {
@@ -80,6 +86,7 @@ public class ejercicio10 {
 			System.out.println("No le corresponden ayudas.");
 		}
 
+		//Cerramos teclado.
 		teclado.close();
 
 	}

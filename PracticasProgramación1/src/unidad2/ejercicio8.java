@@ -3,6 +3,7 @@ package unidad2;
 public class ejercicio8 {
 
 	public static void main(String[] args) {
+		//Declaramos variables.
 		// Tiradas jugador 1
 		int tirada1, tirada2, tirada3 = 0;
 		// Tiradas jugador 2
@@ -50,7 +51,8 @@ public class ejercicio8 {
 			total2 = tirada4 + tirada5 + tirada6;
 			System.out.println("El jugador 2 tiene un total de : " + total2);
 		}
-
+		
+		//Declaro los posibles resultados y el ganador
 		if (resultado1 == 3 && resultado2 == 3 && tirada1 > tirada4) {
 			System.out.println("El jugador 1 es el ganador");
 		} else if (resultado1 == 3 && resultado2 == 3 && tirada1 < tirada4) {
@@ -78,7 +80,7 @@ public class ejercicio8 {
 		} else if (resultado1 == 1 && resultado2 == 1 && total1==total2) {
 			System.out.println("Empate");
 		}
-
+		
 	}
 
 }

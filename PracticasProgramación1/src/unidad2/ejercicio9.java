@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class ejercicio9 {
 
 	public static void main(String[] args) {
+		//Declaramos variables
 		String distancia = "";
 		char unidad = 'A';
 		int rango = 0;
@@ -26,6 +27,8 @@ public class ejercicio9 {
 		// Paso el número de String a double
 		numDist = Double.parseDouble(distancia);
 		
+		//Condicional para la conversion.
+		//millas, yardas, pies y pulgadas respectivamente.
 		switch(conversion) {
 		case 1:
 			if (unidad == 'k') {
@@ -83,6 +86,7 @@ public class ejercicio9 {
 			System.out.println("La unidad introducida no es válida");
 		}
 
+		//Cerramos teclado
 		teclado.close();
 
 	}

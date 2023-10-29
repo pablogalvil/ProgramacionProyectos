@@ -5,15 +5,19 @@ import java.util.Scanner;
 public class ejercicio7 {
 
 	public static void main(String[] args) {
+		//Declaramos variables.
 		int numMes = 0;
 		boolean esBisiesto = false;
-
+		
+		//Introducimos el número del mes
 		Scanner teclado = new Scanner(System.in);
 		System.out.print("Introduce el número del mes : ");
 		numMes = teclado.nextInt();
+		//Para febrero
 		System.out.print("¿El año es bisiesto? ");
 		esBisiesto = teclado.nextBoolean();
 
+		//Condicional para cada mes
 		switch (numMes) {
 		case 1:
 			System.out.println("Enero tiene 31 días");
@@ -57,6 +61,7 @@ public class ejercicio7 {
 			break;
 		}
 
+		//Cerramos teclado.
 		teclado.close();
 
 	}

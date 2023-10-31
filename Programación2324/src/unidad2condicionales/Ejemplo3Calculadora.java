@@ -1,4 +1,4 @@
-package unidad2;
+package unidad2condicionales;
 
 import java.util.Scanner;
 

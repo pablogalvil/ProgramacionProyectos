@@ -1,8 +1,8 @@
-package unidad2;
+package unidad2condicionales;
 
 import java.util.Scanner;
 
-public class Ejemplo2Condicionall {
+public class Ejemplo2Condicional {
 
 	/**
 	 * El programa lee de teclado una nota y nos dice si es insuficiente,

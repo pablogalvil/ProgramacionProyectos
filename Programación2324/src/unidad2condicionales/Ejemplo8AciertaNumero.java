@@ -1,6 +1,4 @@
-package unidad2;
-
-import java.util.Scanner;
+package unidad2condicionales;
 
 public class Ejemplo8AciertaNumero {
 
@@ -15,13 +13,8 @@ public class Ejemplo8AciertaNumero {
 	 */
 
 	public static void main(String[] args) {
-		
-		//Random mas aleatorio que math.random
-		Random rand = new Random();
-		
-		
-		
-		}
+
+		// Random mas aleatorio que math.random
 
 	}
 

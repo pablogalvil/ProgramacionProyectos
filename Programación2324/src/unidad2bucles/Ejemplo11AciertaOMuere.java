@@ -33,10 +33,26 @@ public class Ejemplo11AciertaOMuere {
 				// Tengo un 25% de posibilidades de mentir
 				boolean miento = (Math.random() < 0.25);
 
-				if (num < numBuscar && !miento)
-					System.out.println("El número buscado es mayor que el introducido (" + miento + ")");
-				else if (num > numBuscar && !miento)
-					System.out.println("El numero buscado es menor que el introducido (" + miento + ")");
+				/*
+				 * Tabla de verdad de la condición conjunta erronea
+				 * 
+				 * num<numBuscar !miento resultado &&
+				 * 
+				 * true true true
+				 * 
+				 * true false false
+				 * 
+				 * false true false
+				 * 
+				 * false false false
+				 */
+
+				if (num < numBuscar)
+					System.out.println(
+							"El número buscado es " + (miento ? "menor" : "mayor") + " que el introducido " + miento);
+				else
+					System.out.println(
+							"El numero buscado es " + (miento ? "mayor" : "menor") + " que el introducido " + miento);
 			}
 
 		}

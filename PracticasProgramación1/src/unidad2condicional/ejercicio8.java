@@ -1,4 +1,4 @@
-package unidad2;
+package unidad2condicional;
 
 public class ejercicio8 {
 

@@ -14,7 +14,8 @@ public class ejercicio6 {
 		// tarde
 		int i = 0;
 		// resultado de la multiplicación
-		long resultado = 1;
+		// Uso double porque coge más digitos que el long
+		double resultado = 1;
 		Scanner teclado = new Scanner(System.in);
 
 		// Cogemos datos por teclado
@@ -24,7 +25,7 @@ public class ejercicio6 {
 		d = teclado.nextInt();
 
 		// Lo sumo fuera para que empiece por el número que quiere
-		i += d;
+		i = d;
 
 		// Bucle para hacer el factorial
 		while (i < n) {

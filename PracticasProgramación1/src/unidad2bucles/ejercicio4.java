@@ -22,8 +22,8 @@ public class ejercicio4 {
 			// Condicional para contar las palabras
 			if (oracion.charAt(i) != ' ') {
 				numLetras++;
-				// Pongo la condicion >= porque sino no me coge las palabras con 6 letras
-			} else if (numLetras >= 5) {
+				// Pongo la condicion > 5 para saber si tiene más de 5 letras
+			} else if (numLetras > 5) {
 				// Aumenta la palabra en 1
 				numPalabras++;
 				// Reiniciamos el valor para la siguiente palabra
@@ -32,6 +32,10 @@ public class ejercicio4 {
 				// Reiniciamos el valor para la siguiente palabra
 				numLetras = 0;
 			}
+		}
+		// Condicion para la última palabra
+		if (numLetras > 5) {
+			numPalabras++;
 		}
 
 		// Mostramos cuantas palabras con más de 5 letras hay en la oración.

@@ -8,7 +8,8 @@ public class ejercicio7b {
 		// Variables.
 		String palabraIso = "";
 		Scanner teclado = new Scanner(System.in);
-		// Boolean para determinar si es isograma o no.
+		// Boolean para determinar si es isograma o no. La inicializo en true por
+		// conveniencia.
 		boolean isograma = true;
 
 		System.out.print("Introduce tu palabra : ");
@@ -18,9 +19,8 @@ public class ejercicio7b {
 
 		// Bucle para saber si es isograma o no.
 		for (int i = 0; i < palabraIso.length(); i++) {
-			// La condición es buscada en internet, no se si se hace así pero no sabía
-			// hacerlo de otra forma.
-			if (palabraIso.substring(i + 1).contains(String.valueOf(palabraIso.charAt(i)))) {
+			// Pongo i+1 para que empiece a contar despues de i.
+			if (palabraIso.indexOf(palabraIso.charAt(i), i + 1) != -1) {
 				isograma = false;
 			}
 		}

@@ -60,6 +60,7 @@ public class Ejemplo12CuboRectanguloTriangulo {
 				System.out.println();
 
 			}
+			break;
 		case TRIANGULO:
 			// Dibujamos un triangulo
 			System.out.print("Introduce la altura del triángulo : ");
@@ -80,6 +81,7 @@ public class Ejemplo12CuboRectanguloTriangulo {
 				System.out.println();
 
 			}
+			break;
 		}
 
 		teclado.close();

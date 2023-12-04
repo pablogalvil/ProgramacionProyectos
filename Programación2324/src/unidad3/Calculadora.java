@@ -2,9 +2,14 @@ package unidad3;
 
 public class Calculadora {
 
-	
+	// Si el modificador de una variable es public se puede acceder desde cualquier
+	// clase.
 	public final double PI = 3.14159;
-	
+
+	// Si el modificador de acceso es private implica que solo se puede usar dentro
+	// de la clase.
+	private final double PLCK = 2323.2323;
+
 	/**
 	 * Funcion que recibe dos números y los suma
 	 * 
@@ -43,7 +48,7 @@ public class Calculadora {
 
 		return x / y;
 	}
-	
+
 	public static float division(float x, float y) {
 		// Con return devuelvo la suma de los dos números que me pasan como parámetros
 		if (y == 0)
@@ -51,34 +56,34 @@ public class Calculadora {
 
 		return x / y;
 	}
-	
+
 	/**
 	 * Recibe un array de enteros y devuelve el valor mínimo
 	 * 
 	 * @param listaNum array de enteros
 	 * @return valor mínimo
 	 */
-	
-	public static int min (int listaNum[]) {
-		int min=Integer.MAX_VALUE;
-		//Recorremos todos los elementos del array
-		for (int i = 0; i<listaNum.length;i++) {
-			//Si hay un nuevo mínimo se guarda
-			if(listaNum[i]<min)
+
+	public static int min(int listaNum[]) {
+		int min = Integer.MAX_VALUE;
+		// Recorremos todos los elementos del array
+		for (int i = 0; i < listaNum.length; i++) {
+			// Si hay un nuevo mínimo se guarda
+			if (listaNum[i] < min)
 				min = listaNum[i];
 		}
-		
+
 		return min;
 	}
-	
+
 	public double areaCirculo(double radio) {
-		double PI=3.15;
-		double area=0;
-		
-		//this sirve para usar la variable que prefieres
-		area=this.PI*radio*radio;
-		
-		//Devolvemos la función
+		double PI = 3.15;
+		double area = 0;
+
+		// this sirve para usar la variable que prefieres
+		area = this.PI * radio * radio;
+
+		// Devolvemos la función
 		return area;
 	}
 

@@ -5,6 +5,9 @@ public class EjemploUsoObjetos {
 	public static void main(String[] args) {
 		// Para crear un objeto de tipo persona
 		// Utilizamos new Persona()
+
+		Persona miguel = new Persona();
+
 		Persona mario = new Persona();
 		// Cuando usamos new
 		Persona juan = new Persona();
@@ -15,6 +18,16 @@ public class EjemploUsoObjetos {
 		System.out.println("Datos de juan : " + juan);
 
 		System.out.println("Datos de juanma : " + juanma);
+
+		// Incrementamos la cantidad de personas
+		// miguel.numPersonas++;
+
+		System.out.println("Numero de personas : " + Persona.numPersonas);
+
+		// Nos cargamos a juan
+		juan.morirse();
+
+		System.out.println("Numero de personas de juan : " + juan.numPersonas);
 
 		// Para acceder a las propiedades del objeto se utiliza el operador "."
 		// Solo se pueden hacer a las que ponemos "public"
@@ -37,9 +50,19 @@ public class EjemploUsoObjetos {
 
 		int lista[] = { 3, 4, 2, 7, 56, 1, 23, -4, 34 };
 
-		System.out.println("El mínimo es " + Calculadora.min(lista));
+		System.out.println("El mínimo de forma iterativa es : " + Calculadora.min(lista));
+
+		System.out.println("El mínimo de forma recursiva es : " + Calculadora.minR(lista));
 
 		System.out.println("El area de un circulo de 1 metro es " + oper.areaCirculo(5) + "m");
+
+		Vehiculo coche = new Vehiculo();
+
+		coche.acelerar(34);
+
+		System.out.println("Factorial Iterativo : " + Calculadora.factorial(6));
+
+		System.out.println("Factorial Recursivo : " + Calculadora.factorialR(6));
 
 	}
 

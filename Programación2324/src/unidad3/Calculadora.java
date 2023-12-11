@@ -34,6 +34,38 @@ public class Calculadora {
 	}
 
 	/**
+	 * Funcion factorial que recibe un numero y devuelve la multiplicacion desde 1
+	 * hasta dicho numero por ejemplo si num es 3 devolvera 1*2*3 es decir 6
+	 * 
+	 * @param num
+	 * @return
+	 */
+
+	public static long factorial(int num) {
+		long factorial = 1;
+		for (int i = 1; i <= num; i++) {
+			factorial = factorial * i;
+		}
+		return factorial;
+	}
+
+	/**
+	 * 6!=6*5*4*3*2*1=6*5! 5!=5*4*3*2*1=5*4! 4!=4*3*2*1 3!=3*2*1 2!=2*1 1!=1
+	 * 
+	 * n!=n*(n-1)!
+	 * 
+	 * @param num
+	 * @return
+	 */
+	public static long factorialR(int num) {
+
+		if (num == 1 || num == 0)
+			return num;
+
+		return num * factorialR(num - 1);
+	}
+
+	/**
 	 * Funcion que divide dos numeros
 	 * 
 	 * @param x dividendo
@@ -74,6 +106,38 @@ public class Calculadora {
 		}
 
 		return min;
+	}
+
+	/**
+	 * [2,3,1,5] 2, [3,1,5]
+	 * 
+	 * @param listaNum
+	 * @return
+	 */
+	public static int minR(int listaNum[]) {
+
+		// Si solo hay un número es el mínimo
+		if (listaNum.length == 1)
+			return listaNum[0];
+
+		// Separamos el primer número si hay más de uno
+		int numIzq = listaNum[0];
+
+		int listaDerecha[] = new int[listaNum.length - 1];
+
+		// Copio todos los datos del array desde la posicion 1 hasta la final
+		for (int i = 1; i < listaNum.length; i++) {
+			listaDerecha[i - 1] = listaNum[i];
+		}
+
+		// Si el número de la izquierda es menor que el menor del resto
+		// Devuelvo dicho número, en caso contrario devuelvo el menor del resto
+		// minDer sirve para optimizar el código
+		int minDer = minR(listaDerecha);
+		if (numIzq < minDer)
+			return numIzq;
+		else
+			return minDer;
 	}
 
 	public double areaCirculo(double radio) {

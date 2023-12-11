@@ -7,6 +7,7 @@ public class Persona {
 	private int edad;
 	private double peso;
 	private boolean vivo;
+	public static int numPersonas = 0;
 
 	/**
 	 * Metodo constructor.
@@ -21,6 +22,9 @@ public class Persona {
 		this.edad = (int) (Math.random() * 82) + 18;
 		this.peso = (int) (Math.random() * 40) + 50;
 		this.vivo = Math.random() > 0.1;
+		// Cuando creamos una nueva persona incrementamos la cantidad de personas en
+		// funcionamiento
+		this.numPersonas++;
 	}
 
 	/**
@@ -75,6 +79,13 @@ public class Persona {
 
 	public void setVivo(boolean vivo) {
 		this.vivo = vivo;
+		if (!vivo)
+			numPersonas--;
+	}
+
+	public void morirse() {
+		this.vivo = false;
+		numPersonas--;
 	}
 
 }

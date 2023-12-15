@@ -64,6 +64,12 @@ public class EjemploUsoObjetos {
 
 		System.out.println("Factorial Recursivo : " + Calculadora.factorialR(6));
 
+		int[] lista2 = { 1, 4, 9, 13, 34, 56, 122 };
+
+		System.out.println("Se ha encontrado el número 13 en la posición : " + Calculadora.buscaNumero(lista2, 13));
+
+		System.out.println("Se ha encontrado el número 13 en la posición : " + Calculadora.buscaNumeroR(lista2, 13, 0));
+
 	}
 
 }

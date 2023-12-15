@@ -36,6 +36,7 @@ public class Persona {
 	 * @param vivoR   ¿está vivo?
 	 */
 
+	// This sirve para llamar a los atributos de la clase
 	public Persona(String nombreR, int edadR, double pesoR, boolean vivoR) {
 		// Asignamos los datos que recibimos a las variables miembro
 		this.nombre = nombreR;

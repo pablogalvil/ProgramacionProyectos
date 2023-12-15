@@ -109,10 +109,58 @@ public class Calculadora {
 	}
 
 	/**
-	 * [2,3,1,5] 2, [3,1,5]
+	 * La funcion busca la posicion de un número dentro de un array ordenado
 	 * 
-	 * @param listaNum
-	 * @return
+	 * [1,4,9,13,34,56,122]
+	 * 
+	 * @param listaNumeros array de numeros ordenado
+	 * @param numBus       numero a buscar
+	 * @return posicion donde esta el número, -1 si no está
+	 */
+	public static int buscaNumero(int listaNumeros[], int numBus) {
+		for (int i = 0; i < listaNumeros.length; i++) {
+			if (numBus == listaNumeros[i]) {
+				return i;
+			}
+		}
+		// Si llega hasta aqui es que se ha recorrido todo el array y no se ha
+		// encontrado el número
+		return -1;
+	}
+
+	/**
+	 * La funcion busca la posicion de un número dentro de un array ordenado
+	 * 
+	 * [1,4,9,13,34,56,122]
+	 * 
+	 * @param listaNumeros array de numeros ordenado
+	 * @param numBus       numero a buscar
+	 * @return posicion donde esta el número, -1 si no está
+	 */
+	public static int buscaNumeroR(int listaNumeros[], int numBus, int posAct) {
+
+		// Si encontramos el numero buscado en la posicion actual lo devolvemos
+		if (listaNumeros[posAct] == numBus)
+			return posAct;
+		else if (posAct == listaNumeros.length - 1)
+			// Si estamos en la ultima posicion y no es el numero a buscar
+			// El numero no se encuentra
+			return -1;
+
+		return buscaNumeroR(listaNumeros, numBus, posAct + 1);
+	}
+
+	// POR HACER
+	// Funcion que recibe un array y una posicion de comienzo y una de fin
+	// Devuelve un array resultante de copiar el corte del array que recibe por las
+	// posiciones
+
+	/**
+	 * Esta funcion recibe un array de enteros y devuelve el valor minimo [2,3,1,5]
+	 * 2, [3,1,5]
+	 * 
+	 * @param listaNum array de enteros
+	 * @return el menor de los numeros
 	 */
 	public static int minR(int listaNum[]) {
 

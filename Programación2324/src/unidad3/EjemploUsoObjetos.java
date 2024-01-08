@@ -6,6 +6,7 @@ public class EjemploUsoObjetos {
 		// Para crear un objeto de tipo persona
 		// Utilizamos new Persona()
 
+		// Para poder crear un objeto usamos new y el nombre de la clase
 		Persona miguel = new Persona();
 
 		Persona mario = new Persona();
@@ -21,6 +22,8 @@ public class EjemploUsoObjetos {
 
 		// Incrementamos la cantidad de personas
 		// miguel.numPersonas++;
+
+		miguel.setEdad(34);
 
 		System.out.println("Numero de personas : " + Persona.numPersonas);
 

@@ -11,11 +11,25 @@ public class Equipo {
 	private String estadio;
 	private Jugador listaJugadores[];
 
-	public int buscarJugador(String idJugador, Equipo equipo) {
-		// Primer paso ver si el equipo existe, si no existe devuelvo -1
-		if (equipo == null)
-			return -1;
+	/**
+	 * Funcion que recibe un jugador y lo añade a nuestra lista de jugadores.
+	 * Buscara el primer espacio vacio de nuestro array para insertarlo.
+	 * 
+	 * @param nuevoJugador
+	 * @return
+	 */
+	public int addJugador(Jugador nuevoJugador) {
+		for (int i = 0; i < this.listaJugadores.length; i++) {
+			if (this.listaJugadores[i] == null) {
+				this.listaJugadores[i] = nuevoJugador;
+				return 0;
+			}
+		}
+		// Si no hay huecos devolvemos fallo
+		return -1;
+	}
 
+	public int buscarJugador(String idJugador, Equipo equipo) {
 		// Ver si el jugador está el equipo, si no está devuelvo -1
 		// Recorremos la lista de jugadores del equipo
 		Jugador listaJugEquipo[] = equipo.getListaJugadores();
@@ -48,7 +62,15 @@ public class Equipo {
 
 		// Segundo paso es buscar al jugador
 		int posJug = buscarJugador(idJugador, equipo);
-		return -1;
+
+		// Eliminamos al jugador de su lista de jugadores
+		// Cargamos la lista de jugadores del equipo contrario
+		Jugador listaEquipoF[] = equipo.getListaJugadores();
+		// Añadimos al jugador a nuestra lista
+		addJugador(listaEquipoF[posJug]);
+		// Eliminamos poniendo a null el jugador
+
+		return 0;
 	}
 
 	public Equipo() {
@@ -184,6 +206,21 @@ public class Equipo {
 	 */
 	public void setListaJugadores(Jugador[] listaJugadores) {
 		this.listaJugadores = listaJugadores;
+	}
+
+	// Para poder ordenar y comparar elementos de una clase necesitamos crear el
+	// método compareTo
+	public int compareTo(Equipo otro) {
+		// Si mi equipo tiene mas puntos va delante
+		if (this.puntos > otro.getPuntos())
+			return -1;
+
+		// Si el otro equipo tiene mas puntos va delante
+		if (this.puntos < otro.getPuntos())
+			return 1;
+
+		// Si los dos equipos tienen los mismos puntos, van en la misma posicion
+		return 0;
 	}
 
 }

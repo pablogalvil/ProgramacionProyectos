@@ -86,8 +86,55 @@ public class LigaFutbol {
 		// Creo el jugador a devolver
 		Jugador pichichi = new Jugador();
 
+		// Inicializamos el maximo al menor valor posible
+		int numGolMax = Integer.MIN_VALUE;
+
+		// Recorremos los equipos de la liga
+		for (int i = 0; i < this.listaEquipos.length; i++) {
+			// Para cada equipo recorremos sus jugadores
+			Jugador[] listaJug = this.listaEquipos[i].getListaJugadores();
+			for (int j = 0; j < listaJug.length; j++) {
+				// Si el jugador actual ha marcado más goles que nuestro máximo, es el nuevo
+				// pichichi
+				if (listaJug[j].getNumGoles() > numGolMax) {
+					// Asignamos el jugador al objeto pichichi
+					pichichi = listaJug[j];
+					// Actualizamos el maximo
+					numGolMax = listaJug[j].getNumGoles();
+				}
+			}
+		}
+
 		// Devuelvo el valor máximo
 		return pichichi;
+	}
+
+	/**
+	 * Equipos Descenso (siempre descienden 3 equipos) : devuelve array equipos que
+	 * descienden, los que tengan menos de 6 millones, no hayan marcado más de 4
+	 * goles o los tres últimos.
+	 * 
+	 * @return
+	 */
+	// POR HACER
+	public Equipo[] enDescenso() {
+		// Definimos el array de equipos que va a descender
+		Equipo[] equiposDescenso = new Equipo[3];
+
+		// Variable para ir insertando los equipos que descienden
+		int posDes = 0;
+
+		// Recorremos todos los equipos
+		for (int i = 0; i < this.listaEquipos.length; i++) {
+			this.listaEquipos[i].getPresupuesto();
+
+			// despues en otro bucle metemos los que no han marcado mas de 4 goles
+
+			this.listaEquipos[i].getNumGoles();
+		}
+
+		// Devolvemos la lista de equipos que desciende
+		return equiposDescenso;
 	}
 
 	// Funcion ordenar listaEquipos segun los puntos

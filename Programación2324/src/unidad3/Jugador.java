@@ -10,6 +10,7 @@ public class Jugador {
 	public static final int DELANTERO = 4;
 
 	// Variables miembro
+	public static int numJ = 0;
 	private String id;
 	private String nombre;
 	private int posicion;
@@ -18,11 +19,18 @@ public class Jugador {
 
 	public Jugador() {
 		super();
+		Jugador.numJ++;
+		this.id = Integer.toString(Jugador.numJ);
+		this.nombre = "Jugador" + Jugador.numJ;
+		this.posicion = (int) (Math.random() * 5);
+		this.numGoles = (int) (Math.random() * 25);
+		this.edad = (int) (Math.random() * 30) + 18;
 		// TODO Auto-generated constructor stub
 	}
 
 	public Jugador(String id, String nombre, int posicion, int numGoles, int edad) {
 		super();
+		Jugador.numJ++;
 		this.id = id;
 		this.nombre = nombre;
 		this.posicion = posicion;

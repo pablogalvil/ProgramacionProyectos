@@ -6,6 +6,10 @@ public class EjemploUsoObjetos {
 		// Para crear un objeto de tipo persona
 		// Utilizamos new Persona()
 
+		int edades = 0;
+		edades = (int) (Math.random() * 3);
+		System.out.println(edades);
+
 		// Para poder crear un objeto usamos new y el nombre de la clase
 		Persona miguel = new Persona();
 

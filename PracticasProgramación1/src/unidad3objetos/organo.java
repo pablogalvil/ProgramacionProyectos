@@ -36,6 +36,21 @@ public class organo {
 	public organo() {
 		super();
 		// TODO Auto-generated constructor stub
+		int numAleatorio = (int) (Math.random() * 6);
+		switch (numAleatorio) {
+		case 0:
+			this.nombre = "cerebro";
+		case 1:
+			this.nombre = "corazón";
+		case 2:
+			this.nombre = "riñones";
+		case 3:
+			this.nombre = "pulmones";
+		case 4:
+			this.nombre = "oído";
+		case 5:
+			this.nombre = "estómago";
+		}
 		this.posicion = (int) (Math.random() * 3);
 		this.estado = (int) (Math.random() * 4);
 		this.peso = (double) (Math.random() * 1001) + 200;

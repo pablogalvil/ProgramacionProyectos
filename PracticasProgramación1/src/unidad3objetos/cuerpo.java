@@ -9,7 +9,7 @@ public class cuerpo {
 
 	// {"Cerebro","Corazón","Riñon derecho","Riñon izquierdo","Pulmon
 	// derecho","Pulmon izquierdo","Oído","Estómago"}
-	private String[] nomOrgano;
+	private organo[] organos;
 	private String nombre;
 	private int edad;
 	private double peso;
@@ -19,8 +19,8 @@ public class cuerpo {
 
 	@Override
 	public String toString() {
-		return "cuerpo [nomOrgano=" + Arrays.toString(nomOrgano) + ", nombre=" + nombre + ", edad=" + edad + ", peso="
-				+ peso + ", raza=" + raza + ", estado=" + estado + "]";
+		return "cuerpo [organos=" + Arrays.toString(organos) + ", nombre=" + nombre + ", edad=" + edad + ", peso="
+				+ peso + ", raza=" + raza + ", estado=" + estado + ", numCuerpo=" + numCuerpo + "]";
 	}
 
 	public cuerpo() {
@@ -31,11 +31,15 @@ public class cuerpo {
 		this.edad = (int) (Math.random() * 101);
 		this.peso = (double) (Math.random() * 151) + 50;
 		this.estado = (int) (Math.random() * 3);
+		this.organos = new organo[8];
+		for (int i = 0; i < organos.length; i++) {
+			this.organos[i] = new organo();
+		}
 	}
 
-	public cuerpo(String[] nomOrgano, String nombre, int edad, double peso, String raza, int estado) {
+	public cuerpo(organo[] organos, String nombre, int edad, double peso, String raza, int estado) {
 		super();
-		this.nomOrgano = nomOrgano;
+		this.organos = organos;
 		this.nombre = nombre;
 		this.edad = edad;
 		this.peso = peso;
@@ -43,20 +47,18 @@ public class cuerpo {
 		this.estado = estado;
 	}
 
-	organo[] nomOrg = new organo[8];
-
 	/**
-	 * @return the nomOrgano
+	 * @return the organos
 	 */
-	public String[] getNomOrgano() {
-		return nomOrgano;
+	public organo[] getOrganos() {
+		return organos;
 	}
 
 	/**
-	 * @param nomOrgano the nomOrgano to set
+	 * @param organos the organos to set
 	 */
-	public void setNomOrgano(String[] nomOrgano) {
-		this.nomOrgano = nomOrgano;
+	public void setOrganos(organo[] organos) {
+		this.organos = organos;
 	}
 
 	/**

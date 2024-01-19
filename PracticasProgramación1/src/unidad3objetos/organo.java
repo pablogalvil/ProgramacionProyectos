@@ -14,6 +14,10 @@ public class organo {
 	public static final int BASICA = 1;
 	public static final int SECUNDARIA = 2;
 
+	public static final int ONCOLOGICO = 1;
+	public static final int ESTADO = 2;
+	public static final int RUTINARIO = 3;
+
 	public static final boolean SI = true;
 	public static final boolean NO = false;
 
@@ -25,6 +29,72 @@ public class organo {
 	private int importancia;
 	private String imagen;
 	public boolean activo;
+
+	/**
+	 * Esta función revisa si el organo está en la posicion adecuada y si tiene la
+	 * importancia adecuada
+	 * 
+	 * @return true si todo está bien // false en caso contrario.
+	 */
+	public boolean revision() {
+		boolean todoCorrecto = false;
+
+		switch (nombre) {
+		case "cerebro":
+			if (this.importancia == VITAL && this.posicion == CABEZA) {
+				todoCorrecto = true;
+			}
+			break;
+		case "corazon":
+			if (this.importancia == VITAL && this.posicion == TRONCO_SUPERIOR) {
+				todoCorrecto = true;
+			}
+			break;
+		case "riñones":
+			if (this.importancia == BASICA && this.posicion == TRONCO_INFERIOR) {
+				todoCorrecto = true;
+			}
+			break;
+		case "pulmones":
+			if (this.importancia == VITAL && this.posicion == TRONCO_SUPERIOR) {
+				todoCorrecto = true;
+			}
+			break;
+		case "oido":
+			if (this.importancia == SECUNDARIA && this.posicion == CABEZA) {
+				todoCorrecto = true;
+			}
+			break;
+		case "estomago":
+			if (this.importancia == SECUNDARIA && this.posicion == TRONCO_INFERIOR) {
+				todoCorrecto = true;
+			}
+			break;
+		}
+		return todoCorrecto;
+	}
+
+	public boolean analisis(int tipoAnalisis) {
+		boolean analisisSatisfactorio = false;
+		switch (tipoAnalisis) {
+		case ONCOLOGICO:
+			if (this.estado != CANCERIGENO) {
+				analisisSatisfactorio = true;
+			}
+			break;
+		case ESTADO:
+			if (this.estado != PERJUDICADO) {
+				analisisSatisfactorio = true;
+			}
+			break;
+		case RUTINARIO:
+			if (this.peso > 200 && this.peso < 1000) {
+				analisisSatisfactorio = true;
+			}
+			break;
+		}
+		return analisisSatisfactorio;
+	}
 
 	@Override
 	public String toString() {

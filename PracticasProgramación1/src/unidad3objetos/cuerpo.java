@@ -3,26 +3,27 @@ package unidad3objetos;
 import java.util.Arrays;
 
 public class cuerpo {
+	// Valores para estado
 	public static final int VIVO = 0;
 	public static final int COMA = 1;
 	public static final int MUERTO = 2;
 
-	// {"Cerebro","Corazón","Riñon derecho","Riñon izquierdo","Pulmon
-	// derecho","Pulmon izquierdo","Oído","Estómago"}
+	// Variables miembro
 	private organo[] organos;
 	private String nombre;
 	private int edad;
 	private double peso;
-	private String raza;
+	private raza razaC;
 	private int estado;
 	private int numCuerpo = 0;
 
 	@Override
 	public String toString() {
 		return "cuerpo [organos=" + Arrays.toString(organos) + ", nombre=" + nombre + ", edad=" + edad + ", peso="
-				+ peso + ", raza=" + raza + ", estado=" + estado + ", numCuerpo=" + numCuerpo + "]";
+				+ peso + ", razaC=" + razaC + ", estado=" + estado + ", numCuerpo=" + numCuerpo + "]";
 	}
 
+	// Constructor vacio que genera valores aleatorios para cuerpo
 	public cuerpo() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -35,16 +36,81 @@ public class cuerpo {
 		for (int i = 0; i < organos.length; i++) {
 			this.organos[i] = new organo();
 		}
+		this.razaC = new raza();
 	}
 
-	public cuerpo(organo[] organos, String nombre, int edad, double peso, String raza, int estado) {
+	// Constructor que recibe valores para cuerpo
+	public cuerpo(organo[] organos, String nombre, int edad, double peso, raza razaC, int estado) {
 		super();
 		this.organos = organos;
 		this.nombre = nombre;
 		this.edad = edad;
 		this.peso = peso;
-		this.raza = raza;
+		this.razaC = razaC;
 		this.estado = estado;
+	}
+
+	/**
+	 * Esta funcion hace un transplante en tu cuerpo en caso de que sea necesario
+	 * 
+	 * @param O Organo nuevo a transplantar
+	 * @return -1 si por alguna razon no se puede hacer el transplante // 0 si se ha
+	 *         hecho el transplante correctamente.
+	 */
+	public int transplante(organo O) {
+		int numOrgano = 0;
+		boolean existeOrgano = false;
+		boolean debeHacerTransplante = false;
+		for (int i = 0; i < organos.length; i++) {
+			if (organos[i].getNombre() == O.getNombre() && organos[i].revision() == false) {
+				numOrgano = i;
+				existeOrgano = true;
+				break;
+			}
+		}
+		if (!existeOrgano)
+			return -1;
+		if ((organos[numOrgano].analisis(organo.ONCOLOGICO) == false
+				|| organos[numOrgano].analisis(organo.ESTADO) == false) && O.getEstado() == organo.SANO) {
+			debeHacerTransplante = true;
+		} else if ((organos[numOrgano].analisis(organo.ONCOLOGICO) == false
+				|| organos[numOrgano].analisis(organo.ESTADO) == false)
+				&& (O.analisis(organo.ONCOLOGICO) == false || O.analisis(organo.ESTADO) == false)) {
+			this.estado = MUERTO;
+			return -1;
+		} else {
+			return -1;
+		}
+
+		if (debeHacerTransplante) {
+			organos[numOrgano] = null;
+			organos[numOrgano] = O;
+		}
+		return 0;
+	}
+
+	public organo cura(organo O) {
+		boolean puedeSerCuradoCancer = false;
+		boolean puedeSerCuradoPerjudicado = false;
+		boolean esCuradoCancer = false;
+		boolean esCuradoPerjudicado = false;
+		if (O.revision() == true) {
+			if (O.analisis(organo.ONCOLOGICO) == false && O.analisis(organo.RUTINARIO)) {
+				puedeSerCuradoCancer = true;
+			} else if (O.analisis(organo.ONCOLOGICO) == true) {
+				esCuradoCancer = true;
+			} else {
+				return null;
+			}
+			if (O.analisis(organo.PERJUDICADO) == false && (O.getNombre() != "cerebro" || O.getNombre() != "corazon")) {
+				puedeSerCuradoPerjudicado = true;
+			} else if (O.analisis(organo.PERJUDICADO) == false) {
+				esCuradoPerjudicado = true;
+			} else {
+				return null;
+			}
+		}
+		return O;
 	}
 
 	/**
@@ -104,17 +170,17 @@ public class cuerpo {
 	}
 
 	/**
-	 * @return the raza
+	 * @return the razaC
 	 */
-	public String getRaza() {
-		return raza;
+	public raza getRazaC() {
+		return razaC;
 	}
 
 	/**
-	 * @param raza the raza to set
+	 * @param razaC the razaC to set
 	 */
-	public void setRaza(String raza) {
-		this.raza = raza;
+	public void setRazaC(raza razaC) {
+		this.razaC = razaC;
 	}
 
 	/**

@@ -1,26 +1,32 @@
 package unidad3objetos;
 
 public class organo {
+	// Valores para la variable estado
 	public static final int SANO = 0;
 	public static final int DOLOR = 1;
 	public static final int PERJUDICADO = 2;
 	public static final int CANCERIGENO = 3;
 
+	// Valores para la variable posicion
 	public static final int CABEZA = 0;
 	public static final int TRONCO_SUPERIOR = 1;
 	public static final int TRONCO_INFERIOR = 2;
 
+	// Valores para la variable importancia
 	public static final int VITAL = 0;
 	public static final int BASICA = 1;
 	public static final int SECUNDARIA = 2;
 
+	// Valores para la funcion analisis
 	public static final int ONCOLOGICO = 1;
 	public static final int ESTADO = 2;
 	public static final int RUTINARIO = 3;
 
+	// Valores para la variable activo
 	public static final boolean SI = true;
 	public static final boolean NO = false;
 
+	// Variables miembro
 	private String nombre;
 	private String funcion;
 	private int estado;
@@ -29,6 +35,64 @@ public class organo {
 	private int importancia;
 	private String imagen;
 	public boolean activo;
+
+	@Override
+	public String toString() {
+		return "organo [nombre=" + nombre + ", funcion=" + funcion + ", estado=" + estado + ", peso=" + peso
+				+ ", posicion=" + posicion + ", importancia=" + importancia + ", imagen=" + imagen + ", activo="
+				+ activo + "]";
+	}
+
+	// Contructor vacio que genera valores aleatorios para organo
+	public organo() {
+		super();
+		// TODO Auto-generated constructor stub
+		int numAleatorio = (int) (Math.random() * 8);
+		switch (numAleatorio) {
+		case 0:
+			this.nombre = "cerebro";
+			break;
+		case 1:
+			this.nombre = "corazon";
+			break;
+		case 2:
+			this.nombre = "riñon derecho";
+			break;
+		case 3:
+			this.nombre = "riñon izquierdo";
+			break;
+		case 4:
+			this.nombre = "pulmon derecho";
+			break;
+		case 5:
+			this.nombre = "pulmon izquierdo";
+			break;
+		case 6:
+			this.nombre = "oido";
+			break;
+		case 7:
+			this.nombre = "estomago";
+			break;
+		}
+		this.posicion = (int) (Math.random() * 3);
+		this.estado = (int) (Math.random() * 4);
+		this.peso = (double) (Math.random() * 1001) + 200;
+		activo = NO;
+	}
+
+	// Constructor que recibe valores para organo
+	public organo(String nombre, String funcion, int estado, double peso, int posicion, int importancia, String imagen,
+			boolean activo) {
+		super();
+		this.nombre = nombre;
+		this.funcion = funcion;
+		this.estado = estado;
+		this.peso = peso;
+		this.posicion = posicion;
+		this.importancia = importancia;
+		this.imagen = imagen;
+		this.activo = activo;
+	}
 
 	/**
 	 * Esta función revisa si el organo está en la posicion adecuada y si tiene la
@@ -50,12 +114,22 @@ public class organo {
 				todoCorrecto = true;
 			}
 			break;
-		case "riñones":
+		case "riñon derecho":
 			if (this.importancia == BASICA && this.posicion == TRONCO_INFERIOR) {
 				todoCorrecto = true;
 			}
 			break;
-		case "pulmones":
+		case "riñon izquierdo":
+			if (this.importancia == BASICA && this.posicion == TRONCO_INFERIOR) {
+				todoCorrecto = true;
+			}
+			break;
+		case "pulmon derecho":
+			if (this.importancia == VITAL && this.posicion == TRONCO_SUPERIOR) {
+				todoCorrecto = true;
+			}
+			break;
+		case "pulmon izquierdo":
 			if (this.importancia == VITAL && this.posicion == TRONCO_SUPERIOR) {
 				todoCorrecto = true;
 			}
@@ -74,6 +148,13 @@ public class organo {
 		return todoCorrecto;
 	}
 
+	/**
+	 * Esta función hace un analisis de un tipo dado por el usuario
+	 * 
+	 * @param tipoAnalisis puede ser ONCOLOGICO, ESTADO o RUTINARIO. Llamar usando
+	 *                     "organo.tipoAnalisis".
+	 * @return true si todo ha ido bien // false si el analisis ha ido mal.
+	 */
 	public boolean analisis(int tipoAnalisis) {
 		boolean analisisSatisfactorio = false;
 		switch (tipoAnalisis) {
@@ -94,50 +175,6 @@ public class organo {
 			break;
 		}
 		return analisisSatisfactorio;
-	}
-
-	@Override
-	public String toString() {
-		return "organo [nombre=" + nombre + ", funcion=" + funcion + ", estado=" + estado + ", peso=" + peso
-				+ ", posicion=" + posicion + ", importancia=" + importancia + ", imagen=" + imagen + ", activo="
-				+ activo + "]";
-	}
-
-	public organo() {
-		super();
-		// TODO Auto-generated constructor stub
-		int numAleatorio = (int) (Math.random() * 6);
-		switch (numAleatorio) {
-		case 0:
-			this.nombre = "cerebro";
-		case 1:
-			this.nombre = "corazón";
-		case 2:
-			this.nombre = "riñones";
-		case 3:
-			this.nombre = "pulmones";
-		case 4:
-			this.nombre = "oído";
-		case 5:
-			this.nombre = "estómago";
-		}
-		this.posicion = (int) (Math.random() * 3);
-		this.estado = (int) (Math.random() * 4);
-		this.peso = (double) (Math.random() * 1001) + 200;
-		activo = NO;
-	}
-
-	public organo(String nombre, String funcion, int estado, double peso, int posicion, int importancia, String imagen,
-			boolean activo) {
-		super();
-		this.nombre = nombre;
-		this.funcion = funcion;
-		this.estado = estado;
-		this.peso = peso;
-		this.posicion = posicion;
-		this.importancia = importancia;
-		this.imagen = imagen;
-		this.activo = activo;
 	}
 
 	/**

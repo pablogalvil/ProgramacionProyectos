@@ -53,21 +53,21 @@ public class raza {
 			this.nombre = "Asiatico";
 			break;
 		case MORENO:
-			this.nombre = "Mulato(Gitano)";
+			this.nombre = "Mulato";
 			break;
 		}
 		switch (this.nombre) {
 		case "Negro":
-			this.descripcion = "Provenientes del continente africano, esclavos, miembros de BLM";
+			this.descripcion = "Provenientes del continente africano.";
 			break;
 		case "Blanco":
-			this.descripcion = "Provenientes de las zonas norteñas, generalmente de ideologia nazi, miembros del KKK";
+			this.descripcion = "Provenientes de las zonas norteñas.";
 			break;
 		case "Asiatico":
-			this.descripcion = "Provenientes de oriente, con una cultura distinta al resto, buenos en mateáticas, el 99% tiene gafas y son buenos en los videojuegos.";
+			this.descripcion = "Provenientes de oriente.";
 			break;
-		case "Mulato(Gitano)":
-			this.descripcion = "Mezcla de razas negra y blanca, generalmente situados en el ecuador, su centro de operaciones son las 3000 viviendas, viven de robar televisiones, saben cantar";
+		case "Mulato":
+			this.descripcion = "Mezcla de razas negra y blanca, generalmente situados en el ecuador.";
 			break;
 		}
 	}

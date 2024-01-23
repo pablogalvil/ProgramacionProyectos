@@ -58,59 +58,98 @@ public class cuerpo {
 	 *         hecho el transplante correctamente.
 	 */
 	public int transplante(organo O) {
-		int numOrgano = 0;
-		boolean existeOrgano = false;
-		boolean debeHacerTransplante = false;
-		for (int i = 0; i < organos.length; i++) {
-			if (organos[i].getNombre() == O.getNombre() && organos[i].revision() == false) {
+		organo Org = new organo();// Variable para sustituir el organo
+		int numOrgano = 0;// Variable para poder sustituir el organo mas tarde
+		boolean existeOrgano = false;// Variable para saber si existe el organo
+		for (int i = 0; i < organos.length; i++) {// Bucle que busca un organo y termina al encontrarlo
+			if (organos[i].getNombre().equals(O.getNombre()) && organos[i].revision() == false) {
+				Org = organos[i];
 				numOrgano = i;
 				existeOrgano = true;
 				break;
 			}
 		}
-		if (!existeOrgano)
+		if (!existeOrgano) {
 			return -1;
-		if ((organos[numOrgano].analisis(organo.ONCOLOGICO) == false
-				|| organos[numOrgano].analisis(organo.ESTADO) == false) && O.getEstado() == organo.SANO) {
-			debeHacerTransplante = true;
-		} else if ((organos[numOrgano].analisis(organo.ONCOLOGICO) == false
-				|| organos[numOrgano].analisis(organo.ESTADO) == false)
-				&& (O.analisis(organo.ONCOLOGICO) == false || O.analisis(organo.ESTADO) == false)) {
+		} else if ((Org.analisis(1) == false || Org.analisis(2) == false) && O.getEstado() == 0) {
+			organos[numOrgano] = O;
+		} else if ((Org.analisis(1) == false || Org.analisis(2) == false)
+				&& (O.analisis(1) == false || O.analisis(2) == false)) {
 			this.estado = MUERTO;
 			return -1;
 		} else {
 			return -1;
 		}
-
-		if (debeHacerTransplante) {
-			organos[numOrgano] = null;
-			organos[numOrgano] = O;
-		}
 		return 0;
 	}
 
+	/**
+	 * Esta funcion cura un organo cancerigeno o perjudicado siempre que esté en la
+	 * posicion correcta. Este organo tendra un 65% de posibilidades de curarse de
+	 * cancer y un 90% de curarse de estar perjudicado
+	 * 
+	 * @param O organo que quieras curar
+	 * @return null si no pudo curarse // el organo si se cura
+	 */
 	public organo cura(organo O) {
-		boolean puedeSerCuradoCancer = false;
-		boolean puedeSerCuradoPerjudicado = false;
-		boolean esCuradoCancer = false;
-		boolean esCuradoPerjudicado = false;
 		if (O.revision() == true) {
-			if (O.analisis(organo.ONCOLOGICO) == false && O.analisis(organo.RUTINARIO)) {
-				puedeSerCuradoCancer = true;
-			} else if (O.analisis(organo.ONCOLOGICO) == true) {
-				esCuradoCancer = true;
-			} else {
-				return null;
-			}
-			if (O.analisis(organo.PERJUDICADO) == false && (O.getNombre() != "cerebro" || O.getNombre() != "corazon")) {
-				puedeSerCuradoPerjudicado = true;
-			} else if (O.analisis(organo.PERJUDICADO) == false) {
-				esCuradoPerjudicado = true;
+			// Mira si tiene cancer
+			if (O.analisis(1) == false && O.analisis(3)) {
+				// Variable para saber si es posible curar cancer o no
+				double curaCancer = Math.random();
+				if (curaCancer < 0.65) {
+					O.setEstado(organo.SANO);
+					return O;
+				} else if (O.getImportancia() == 0) {// Para la subida de nota, si es vital, el cuerpo muere
+					this.estado = MUERTO;
+					return null;
+				} else
+					return null;
+			} else if (O.analisis(1) == true) {
+				// Si no tiene cancer, mira si está perjudicado
+				if (O.analisis(2) == false && (O.getNombre() != "cerebro" || O.getNombre() != "corazon")) {
+					// Variable para saber si es posible curar el organo perjudicado o no
+					double curaPerjudicado = Math.random();
+					if (curaPerjudicado < 0.90) {
+						O.setEstado(0);
+						return O;
+					} else
+						return null;
+				} else if (O.analisis(2) == false) {
+					return O;
+				} else if (O.getImportancia() == 0) {// Para la subida de nota, si es vital, el cuerpo muere
+					this.estado = MUERTO;
+					return null;
+				} else
+					return null;
 			} else {
 				return null;
 			}
 		}
-		return O;
+		return null;
+	}
+
+	/**
+	 * Esta funcion realiza un analisis oncologico en todos los organos del cuerpo
+	 * para saber si alguno tiene cancer
+	 * 
+	 * @return true si alguno tiene cancer // false si ninguno tiene cancer
+	 */
+	public boolean oncologia() {
+		for (int i = 0; i < organos.length; i++) {
+			if (organos[i].analisis(1) == false) {
+				return true;
+			} else
+				continue;
+		}
+		return false;
+	}
+
+	public int revisionGeneral() {
+		for (int i = 0; i < organos.length; i++) {
+
+		}
+		return 0;
 	}
 
 	/**

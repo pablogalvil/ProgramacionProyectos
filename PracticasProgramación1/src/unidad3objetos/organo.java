@@ -103,43 +103,43 @@ public class organo {
 	public boolean revision() {
 		boolean todoCorrecto = false;
 
-		switch (nombre) {
-		case "cerebro":
+		switch (nombre) {// switch que pasa por cada nombre de organo para comprobar su posicion
+		case "cerebro":// Si la importancia y la posicion son correctas, habrá ido bien
 			if (this.importancia == VITAL && this.posicion == CABEZA) {
 				todoCorrecto = true;
 			}
 			break;
-		case "corazon":
+		case "corazon":// Si la importancia y la posicion son correctas, habrá ido bien
 			if (this.importancia == VITAL && this.posicion == TRONCO_SUPERIOR) {
 				todoCorrecto = true;
 			}
 			break;
-		case "riñon derecho":
+		case "riñon derecho":// Si la importancia y la posicion son correctas, habrá ido bien
 			if (this.importancia == BASICA && this.posicion == TRONCO_INFERIOR) {
 				todoCorrecto = true;
 			}
 			break;
-		case "riñon izquierdo":
+		case "riñon izquierdo":// Si la importancia y la posicion son correctas, habrá ido bien
 			if (this.importancia == BASICA && this.posicion == TRONCO_INFERIOR) {
 				todoCorrecto = true;
 			}
 			break;
-		case "pulmon derecho":
+		case "pulmon derecho":// Si la importancia y la posicion son correctas, habrá ido bien
 			if (this.importancia == VITAL && this.posicion == TRONCO_SUPERIOR) {
 				todoCorrecto = true;
 			}
 			break;
-		case "pulmon izquierdo":
+		case "pulmon izquierdo":// Si la importancia y la posicion son correctas, habrá ido bien
 			if (this.importancia == VITAL && this.posicion == TRONCO_SUPERIOR) {
 				todoCorrecto = true;
 			}
 			break;
-		case "oido":
+		case "oido":// Si la importancia y la posicion son correctas, habrá ido bien
 			if (this.importancia == SECUNDARIA && this.posicion == CABEZA) {
 				todoCorrecto = true;
 			}
 			break;
-		case "estomago":
+		case "estomago":// Si la importancia y la posicion son correctas, habrá ido bien
 			if (this.importancia == SECUNDARIA && this.posicion == TRONCO_INFERIOR) {
 				todoCorrecto = true;
 			}
@@ -157,19 +157,19 @@ public class organo {
 	 */
 	public boolean analisis(int tipoAnalisis) {
 		boolean analisisSatisfactorio = false;
-		switch (tipoAnalisis) {
+		switch (tipoAnalisis) {// Switch que hace en cada caso el tipo de analisis dado
 		case ONCOLOGICO:
-			if (this.estado != CANCERIGENO) {
+			if (this.estado != CANCERIGENO) {// Si no tiene cancer, habrá ido bien el analisis
 				analisisSatisfactorio = true;
 			}
 			break;
 		case ESTADO:
-			if (this.estado != PERJUDICADO) {
+			if (this.estado != PERJUDICADO) {// Si no está perjudicado, habrá ido bien el analisis
 				analisisSatisfactorio = true;
 			}
 			break;
 		case RUTINARIO:
-			if (this.peso > 200 && this.peso < 1000) {
+			if (this.peso > 200 && this.peso < 1000) {// Si su peso es entre 200g y 1kg, habrá ido bien el analisis
 				analisisSatisfactorio = true;
 			}
 			break;

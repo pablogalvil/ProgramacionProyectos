@@ -76,7 +76,7 @@ public class organo {
 		}
 		this.posicion = (int) (Math.random() * 3);
 		this.estado = (int) (Math.random() * 4);
-		this.peso = (double) (Math.random() * 1001) + 200;
+		this.peso = (double) (Math.random() * 1301) + 200;
 		activo = NO;
 	}
 

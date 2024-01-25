@@ -145,11 +145,92 @@ public class cuerpo {
 		return false;
 	}
 
-	public int revisionGeneral() {
+	public int[] revisionGeneral() {
+		// Variables miembro
+		int numEnfermedades = 0;// Para saber el tamaño del array
+		int[] enfermedades;
+		// Para saber si cumple las condiciones de cada enfermedad
+		boolean cabezaConDolor = false;
+		boolean rinonesPerjudicados = false;
+		boolean oidoPerjudicado = false;
+		boolean cerebroPerjudicado = false;
+		boolean pulmonesPerjudicados = false;
+		boolean estomagoConDolor = false;
+		boolean pulmonesConDolor = false;
+		// Variables de enfermedades
+		boolean malaria = false;
+		boolean parkinson = false;
+		boolean bronquitis = false;
+		boolean gripe = false;
+		boolean cancer = false;
 		for (int i = 0; i < organos.length; i++) {
-
+			if (organos[i].getPosicion() == 0 && organos[i].getEstado() == 1) {
+				cabezaConDolor = true;
+			} else if ((organos[i].getNombre().equals("riñon izquierdo")
+					|| organos[i].getNombre().equals("riñon derecho")) && organos[i].analisis(2) == false) {
+				rinonesPerjudicados = true;
+			} else if (organos[i].getNombre().equals("oido") && organos[i].analisis(2)) {
+				oidoPerjudicado = true;
+			} else if (organos[i].getNombre().equals("cerebro") && organos[i].analisis(2)) {
+				cerebroPerjudicado = true;
+			} else if ((organos[i].getNombre().equals("pulmon izquierdo")
+					|| organos[i].getNombre().equals("pulmon derecho")) && organos[i].analisis(2) == false) {
+				pulmonesPerjudicados = true;
+			} else if (organos[i].getNombre().equals("estomago") && organos[i].getEstado() == 1) {
+				estomagoConDolor = true;
+			} else if ((organos[i].getNombre().equals("pulmon izquierdo")
+					|| organos[i].getNombre().equals("pulmon derecho")) && organos[i].getEstado() == 1) {
+				pulmonesConDolor = true;
+			}
 		}
-		return 0;
+		// Condiciones para saber cuantas enfermedades tiene
+		if (cabezaConDolor && rinonesPerjudicados) {// condicion malaria
+			numEnfermedades++;
+			malaria = true;
+		}
+		if (oidoPerjudicado && cerebroPerjudicado) {// condicion parkinson
+			numEnfermedades++;
+			parkinson = true;
+		}
+		if (cabezaConDolor && pulmonesPerjudicados) {// condicion bronquitis
+			numEnfermedades++;
+			bronquitis = true;
+		}
+		if (cabezaConDolor && estomagoConDolor && pulmonesConDolor) {// condicion gripe
+			numEnfermedades++;
+			gripe = true;
+		}
+		if (this.oncologia() == true) {// condicion cancer
+			numEnfermedades++;
+			cancer = true;
+		}
+		// Condicion para crear el array
+		if (numEnfermedades == 0) {
+			enfermedades = new int[1];
+			enfermedades[0] = 6;
+		} else {// Creamos el array
+			enfermedades = new int[numEnfermedades];
+			// Bucle para añadir las enfermedades
+			for (int i = 0; i < enfermedades.length; i++) {
+				if (malaria) {// Si tiene malaria, la introduzco y la pongo en false para que no se repita
+					malaria = false;
+					enfermedades[i] = 1;
+				} else if (parkinson) {// Si tiene parkinson, la introduzco y la pongo en false para que no se repita
+					parkinson = false;
+					enfermedades[i] = 2;
+				} else if (bronquitis) {// Si tiene bronquitis, la introduzco y la pongo en false para que no se repita
+					bronquitis = false;
+					enfermedades[i] = 3;
+				} else if (gripe) {// Si tiene gripe, la introduzco y la pongo en false para que no se repita
+					gripe = false;
+					enfermedades[i] = 4;
+				} else if (cancer) {// Si tiene cancer, la introduzco y la pongo en false para que no se repita
+					cancer = false;
+					enfermedades[i] = 5;
+				}
+			}
+		}
+		return enfermedades;
 	}
 
 	/**

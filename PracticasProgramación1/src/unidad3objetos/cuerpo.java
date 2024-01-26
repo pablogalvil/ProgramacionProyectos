@@ -8,6 +8,13 @@ public class cuerpo {
 	public static final int COMA = 1;
 	public static final int MUERTO = 2;
 
+	public static final int MALARIA = 1;
+	public static final int PARKINSON = 2;
+	public static final int BRONQUITIS = 3;
+	public static final int GRIPE = 4;
+	public static final int CANCER = 5;
+	public static final int SANO = 6;
+
 	// Variables miembro
 	private organo[] organos;
 	private String nombre;
@@ -145,6 +152,13 @@ public class cuerpo {
 		return false;
 	}
 
+	/**
+	 * Esta funcion revisa si el cuerpo tiene alguna enfermedad, basandose en si
+	 * tiene dolor de cabeza o de estomago por ejemplo
+	 * 
+	 * @return Array con enfermedades : 1 malaria, 2 parkinson, 3 bronquitis, 4
+	 *         gripe, 5 cancer//En su defecto 6 que es sano
+	 */
 	public int[] revisionGeneral() {
 		// Variables miembro
 		int numEnfermedades = 0;// Para saber el tamaño del array
@@ -207,26 +221,26 @@ public class cuerpo {
 		// Condicion para crear el array
 		if (numEnfermedades == 0) {
 			enfermedades = new int[1];
-			enfermedades[0] = 6;
+			enfermedades[0] = SANO;
 		} else {// Creamos el array
 			enfermedades = new int[numEnfermedades];
 			// Bucle para añadir las enfermedades
 			for (int i = 0; i < enfermedades.length; i++) {
 				if (malaria) {// Si tiene malaria, la introduzco y la pongo en false para que no se repita
 					malaria = false;
-					enfermedades[i] = 1;
+					enfermedades[i] = MALARIA;
 				} else if (parkinson) {// Si tiene parkinson, la introduzco y la pongo en false para que no se repita
 					parkinson = false;
-					enfermedades[i] = 2;
+					enfermedades[i] = PARKINSON;
 				} else if (bronquitis) {// Si tiene bronquitis, la introduzco y la pongo en false para que no se repita
 					bronquitis = false;
-					enfermedades[i] = 3;
+					enfermedades[i] = BRONQUITIS;
 				} else if (gripe) {// Si tiene gripe, la introduzco y la pongo en false para que no se repita
 					gripe = false;
-					enfermedades[i] = 4;
+					enfermedades[i] = GRIPE;
 				} else if (cancer) {// Si tiene cancer, la introduzco y la pongo en false para que no se repita
 					cancer = false;
-					enfermedades[i] = 5;
+					enfermedades[i] = CANCER;
 				}
 			}
 		}

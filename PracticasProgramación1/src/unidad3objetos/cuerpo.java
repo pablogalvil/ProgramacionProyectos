@@ -69,22 +69,22 @@ public class cuerpo {
 		int numOrgano = 0;// Variable para poder sustituir el organo mas tarde
 		boolean existeOrgano = false;// Variable para saber si existe el organo
 		for (int i = 0; i < organos.length; i++) {// Bucle que busca un organo y termina al encontrarlo
-			if (organos[i].getNombre().equals(O.getNombre()) && organos[i].revision() == false) {
+			if (organos[i].getNombre().equals(O.getNombre()) && organos[i].revision() == true) {
 				Org = organos[i];
 				numOrgano = i;
 				existeOrgano = true;
 				break;
 			}
 		}
-		if (!existeOrgano) {
+		if (!existeOrgano) {//Si no hay organos iguales que el dado, falla el transplante
 			return -1;
-		} else if ((Org.analisis(1) == false || Org.analisis(2) == false) && O.getEstado() == 0) {
+		} else if ((Org.analisis(1) == false || Org.analisis(2) == false) && O.getEstado() == 0) {//Si el organo encontrado está mal y el dado está sano, se hace el transplante
 			organos[numOrgano] = O;
 		} else if ((Org.analisis(1) == false || Org.analisis(2) == false)
-				&& (O.analisis(1) == false || O.analisis(2) == false)) {
+				&& (O.analisis(1) == false || O.analisis(2) == false)) {//Si ambos organos están mal, el cuerpo muere y falla el transplante
 			this.estado = MUERTO;
 			return -1;
-		} else {
+		} else {//Si falla el transplante devuelve -1
 			return -1;
 		}
 		return 0;
@@ -104,7 +104,7 @@ public class cuerpo {
 			if (O.analisis(1) == false && O.analisis(3)) {
 				// Variable para saber si es posible curar cancer o no
 				double curaCancer = Math.random();
-				if (curaCancer < 0.65) {
+				if (curaCancer < 0.65) {//65% de posibilidades de curarse
 					O.setEstado(organo.SANO);
 					return O;
 				} else if (O.getImportancia() == 0) {// Para la subida de nota, si es vital, el cuerpo muere
@@ -112,27 +112,32 @@ public class cuerpo {
 					return null;
 				} else
 					return null;
-			} else if (O.analisis(1) == true) {
-				// Si no tiene cancer, mira si está perjudicado
-				if (O.analisis(2) == false && (O.getNombre() != "cerebro" || O.getNombre() != "corazon")) {
+			} else if (O.analisis(1)) {
+				// Si no tiene cancer, mira si está perjudicado y si no es ni corazon ni cerebro
+				if (O.analisis(2) == false && O.getNombre() != "cerebro" && O.getNombre() != "corazon") {
 					// Variable para saber si es posible curar el organo perjudicado o no
 					double curaPerjudicado = Math.random();
-					if (curaPerjudicado < 0.90) {
+					if (curaPerjudicado < 0.90) {//90% de posibilidades de curarse
 						O.setEstado(0);
 						return O;
+					} else if (O.getImportancia() == 0) {// Para la subida de nota, si es vital, el cuerpo muere
+						this.estado = MUERTO;
+						return null;
 					} else
 						return null;
-				} else if (O.analisis(2) == false) {
+				} else if (O.analisis(2) == true) {//Si no necesita cura, devuelve el organo
 					return O;
-				} else if (O.getImportancia() == 0) {// Para la subida de nota, si es vital, el cuerpo muere
+				} else{// Para la subida de nota, si es vital, el cuerpo muere (no tiene condición porque siempre se cumple
 					this.estado = MUERTO;
 					return null;
-				} else
-					return null;
-			} else {
+				}
+			} else if (O.getImportancia() == 0) {// Para la subida de nota, si es vital, el cuerpo muere
+				this.estado = MUERTO;
+				return null;
+			} else {//Si tiene cancer pero no el peso adecuado, no se podrá curar
 				return null;
 			}
-		}
+		}//No se puede hacer el analisis porque la revision fue mal
 		return null;
 	}
 
@@ -143,8 +148,8 @@ public class cuerpo {
 	 * @return true si alguno tiene cancer // false si ninguno tiene cancer
 	 */
 	public boolean oncologia() {
-		for (int i = 0; i < organos.length; i++) {
-			if (organos[i].analisis(1) == false) {
+		for (int i = 0; i < organos.length; i++) {//Bucle para pasar por cada organo
+			if (organos[i].analisis(1) == false) {//Si alguno tiene cancer, devuelve true
 				return true;
 			} else
 				continue;
@@ -178,22 +183,22 @@ public class cuerpo {
 		boolean gripe = false;
 		boolean cancer = false;
 		for (int i = 0; i < organos.length; i++) {
-			if (organos[i].getPosicion() == 0 && organos[i].getEstado() == 1) {
+			if (organos[i].getPosicion() == 0 && organos[i].getEstado() == 1) {//Saber si tiene dolor de cabeza
 				cabezaConDolor = true;
 			} else if ((organos[i].getNombre().equals("riñon izquierdo")
-					|| organos[i].getNombre().equals("riñon derecho")) && organos[i].analisis(2) == false) {
+					|| organos[i].getNombre().equals("riñon derecho")) && organos[i].analisis(2) == false) {//Saber si tiene los riñones perjudicados
 				rinonesPerjudicados = true;
-			} else if (organos[i].getNombre().equals("oido") && organos[i].analisis(2)) {
+			} else if (organos[i].getNombre().equals("oido") && organos[i].analisis(2) == false) {//Saber si tiene el oido perjudicado
 				oidoPerjudicado = true;
-			} else if (organos[i].getNombre().equals("cerebro") && organos[i].analisis(2)) {
+			} else if (organos[i].getNombre().equals("cerebro") && organos[i].analisis(2) == false) {//Saber si tiene el cerebro perjudicado
 				cerebroPerjudicado = true;
 			} else if ((organos[i].getNombre().equals("pulmon izquierdo")
-					|| organos[i].getNombre().equals("pulmon derecho")) && organos[i].analisis(2) == false) {
+					|| organos[i].getNombre().equals("pulmon derecho")) && organos[i].analisis(2) == false) {//Saber si tiene los pulmones perjudicados
 				pulmonesPerjudicados = true;
-			} else if (organos[i].getNombre().equals("estomago") && organos[i].getEstado() == 1) {
+			} else if (organos[i].getNombre().equals("estomago") && organos[i].getEstado() == 1) {//Saber si tiene dolor de estomago
 				estomagoConDolor = true;
 			} else if ((organos[i].getNombre().equals("pulmon izquierdo")
-					|| organos[i].getNombre().equals("pulmon derecho")) && organos[i].getEstado() == 1) {
+					|| organos[i].getNombre().equals("pulmon derecho")) && organos[i].getEstado() == 1) {//Saber si tiene dolor de pulmones
 				pulmonesConDolor = true;
 			}
 		}

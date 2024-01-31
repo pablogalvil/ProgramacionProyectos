@@ -47,7 +47,9 @@ public class organo {
 	public organo() {
 		super();
 		// TODO Auto-generated constructor stub
+		//Variable para el switch
 		int numAleatorio = (int) (Math.random() * 8);
+		//Switch que genera nombres aleatoriamente
 		switch (numAleatorio) {
 		case 0:
 			this.nombre = "cerebro";
@@ -145,14 +147,14 @@ public class organo {
 			}
 			break;
 		}
-		return todoCorrecto;
+		return todoCorrecto;//Devuelve el boolean, sea true o false
 	}
 
 	/**
 	 * Esta función hace un analisis de un tipo dado por el usuario
 	 * 
 	 * @param tipoAnalisis puede ser ONCOLOGICO, ESTADO o RUTINARIO. Llamar usando
-	 *                     "organo.tipoAnalisis".
+	 *                     1, 2 y 3 respectivamente.
 	 * @return true si todo ha ido bien // false si el analisis ha ido mal.
 	 */
 	public boolean analisis(int tipoAnalisis) {
@@ -174,7 +176,7 @@ public class organo {
 			}
 			break;
 		}
-		return analisisSatisfactorio;
+		return analisisSatisfactorio;//Devuelve el boolean, sea true o false
 	}
 
 	/**

@@ -38,7 +38,23 @@ public class Ordenador {
 		 * 3. Sabemos si estan en el sitio correcto si en la posición 0 está el tipo 1,
 		 * en la 1 el tipo 2, etc.
 		 */
-		return 0;
+		for (int i = 0; i < listaComponentes.length; i++) {
+			if (listaComponentes[i].getTipo() == 1 && i == 0)
+				continue;
+			else if (listaComponentes[i].getTipo() == 2 && i == 1)
+				continue;
+			else if (listaComponentes[i].getTipo() == 3 && i == 2)
+				continue;
+			else if (listaComponentes[i].getTipo() == 4 && i == 3)
+				continue;
+			else if (listaComponentes[i].getTipo() == 5 && i == 4)
+				continue;
+			else if (listaComponentes[i].getTipo() == 6 && i == 5)
+				continue;
+			else
+				return MONTAJE_FALLIDO;
+		}
+		return MONTAJE_CORRECTO;
 	}
 
 	/**

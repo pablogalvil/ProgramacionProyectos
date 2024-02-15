@@ -37,14 +37,14 @@ public class ModelCliente {
 	 * @param con
 	 * @return 0 si no encuentra al cliente y 1 si lo borra
 	 */
-	public static int removeClientes(Connection con) {
+	public static int removeClientes(Connection con, int idCliente) {
 		try {
 			// Primer paso, creo un statement
 			Statement stmt = con.createStatement();
 
 			// Ejecutamos la query y los resultados quedan en el resultSet
 
-			int numAff = stmt.executeUpdate("DELETE FROM CLIENTE WHERE idCliente=1");
+			int numAff = stmt.executeUpdate("DELETE FROM CLIENTE WHERE idCliente=" + idCliente);
 
 			return numAff;
 

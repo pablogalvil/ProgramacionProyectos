@@ -51,7 +51,7 @@ public class PruebasBD {
 			// System.out.println("Se han modificado " + numAff + " columnas");
 
 			// Ejemplo de borrado
-			ModelCliente.removeClientes(con);
+			ModelCliente.removeClientes(con, 3);
 			int idCliente = 3;
 			ClienteDO cliente = new ClienteDO(idCliente, null, "Perlita", 20, 'F', null, null);
 			int numAff = ModelCliente.updateCliente(con, cliente);

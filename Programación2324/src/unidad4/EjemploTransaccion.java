@@ -13,15 +13,21 @@ public class EjemploTransaccion {
 
 		Connection con = UtilsBD.conectarBD();
 
+		// Cerramos la conexion
 		try {
-			// Si ponemos autocommit a false existe la posibilidad de borrar las operaciones
-			// de bd que se hayan realizado
+
+			// Si ponemos autocommit a false
+			// Existe la posiblidad de borrar las
+			// operaciones de bd
+			// Que se hayan realizado
 			con.setAutoCommit(false);
 
-			ClienteDO juan = new ClienteDO(-1, "juan", "perez", 23, 'M', "email@email.com", "passwuord");
+			ClienteDO juan = new ClienteDO(-1, "juan", "perez", 23, 'M', "email@email2.com", "passswuord");
 
 			ModelCliente.insertCliente(con, juan);
 
+			// Modificamos los datos de juan
+			juan.setIdCliente(102);
 			juan.setApellidos("Picapiedra");
 			juan.setEdad(45);
 
@@ -29,8 +35,16 @@ public class EjemploTransaccion {
 
 			ModelCliente.removeClientes(con, 67);
 
+			// En el momento que haga commit se hacen
+			// permanentes
+			// En bd todas las instrucciones ejecutadas
+			con.commit();
+
+			// Cerramos la conexion
 			con.close();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 

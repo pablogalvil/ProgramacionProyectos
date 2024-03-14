@@ -1,8 +1,10 @@
 package unidad4.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class KoalaDAO {
 	/**
@@ -14,13 +16,19 @@ public class KoalaDAO {
 	 */
 	public static int eliminar(int id, Connection con) {
 		try {
+			String query = "DELETE FROM KOALA WHERE idKoala = ?";
 
-			Statement stmt = con.createStatement();
+			PreparedStatement pstmt = con.prepareStatement(query);
 
-			int num = stmt.executeUpdate("DELETE FROM KOALA WHERE idKoala=" + id);
+			pstmt.setInt(1, id);
 
-			return num;
-		} catch (Exception e) {
+			int num = pstmt.executeUpdate();
+
+			if (num == 0)
+				return -1;
+			else
+				return 0;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return -1;
 		}
@@ -42,54 +50,59 @@ public class KoalaDAO {
 		try {
 			String query = "";
 
-			Statement stmt = con.createStatement();
-
 			// Comprobamos que el avestruz no es nulo.
 			if (koala == null)
 				return 0;
 			// Comprobamos que los campos con string no son nulos
-			if (koala.getNombre() == null)
+			if (koala.getNombre() == null || koala.getNickGuerra() == null || koala.getColor() == null)
 				return 0;
-			if (koala.getNickGuerra() == null)
-				return 0;
-			if (koala.getColor() == null)
-				return 0;
+
+			KoalaDO koalaDelId = cargar(con, koala.getIdKoala());
 
 			if (koala.getIdKoala() != 0) {
-				ResultSet rs = stmt.executeQuery("SELECT * FROM KOALA WHERE idKoala=" + koala.getIdKoala());
-				if (rs == null) {
-					query = "INSERT INTO KOALA VALUES(idKoala, nombre, nickGuerra, edad, color, fuerza, inteligencia, horasSueno, tiempoBerserk, avestruz_idAvestruz, carritoGolf_idCarritoGolf) ("
-							+ koala.getIdKoala();
-					query += ",'" + koala.getNombre();
-					query += "','" + koala.getNickGuerra();
-					query += "'," + koala.getEdad();
-					query += ",'" + koala.getColor();
-					query += "'," + koala.getFuerza();
-					query += "," + koala.getInteligencia();
-					query += "," + koala.getHorasSueno();
-					query += "," + koala.getTiempoBerserk();
-					query += "," + koala.getAvestruz_idAvestruz();
-					query += "," + koala.getCarritoGolf_idCarritoGolf() + ")";
+				if (koalaDelId != null && koalaDelId.getIdKoala() == koala.getIdKoala()) {
+					query = "INSERT INTO KOALA (nombre, nickGuerra, edad, color, fuerza, inteligencia, horasSueno, tiempoBerserk, avestruz_idAvestruz, carritoGolf_idCarritoGolf) VALUES (?,?,?,?,?,?,?,?,?,?)";
+
+					PreparedStatement pstmt = con.prepareStatement(query);
+
+					pstmt.setString(1, koala.getNombre());
+					pstmt.setString(2, koala.getNickGuerra());
+					pstmt.setInt(3, koala.getEdad());
+					pstmt.setString(4, koala.getColor());
+					pstmt.setInt(5, koala.getFuerza());
+					pstmt.setInt(6, koala.getInteligencia());
+					pstmt.setInt(7, koala.getHorasSueno());
+					pstmt.setInt(8, koala.getTiempoBerserk());
+					pstmt.setInt(9, koala.getAvestruz_idAvestruz());
+					pstmt.setInt(10, koala.getCarritoGolf_idCarritoGolf());
+
+					int num = pstmt.executeUpdate();
+
+					return num;
 				} else {
-					query = "INSERT INTO KOALA VALUES(idKoala, nombre, nickGuerra, edad, color, fuerza, inteligencia, horasSueno, tiempoBerserk, avestruz_idAvestruz, carritoGolf_idCarritoGolf) ('"
-							+ koala.getNombre();
-					query += "','" + koala.getNickGuerra();
-					query += "'," + koala.getEdad();
-					query += ",'" + koala.getColor();
-					query += "'," + koala.getFuerza();
-					query += "," + koala.getInteligencia();
-					query += "," + koala.getHorasSueno();
-					query += "," + koala.getTiempoBerserk();
-					query += "," + koala.getAvestruz_idAvestruz();
-					query += "," + koala.getCarritoGolf_idCarritoGolf() + ")";
+					query = "INSERT INTO KOALA (idKoala, nombre, nickGuerra, edad, color, fuerza, inteligencia, horasSueno, tiempoBerserk, avestruz_idAvestruz, carritoGolf_idCarritoGolf) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+
+					PreparedStatement pstmt = con.prepareStatement(query);
+
+					pstmt.setInt(1, koala.getIdKoala());
+					pstmt.setString(2, koala.getNombre());
+					pstmt.setString(3, koala.getNickGuerra());
+					pstmt.setInt(4, koala.getEdad());
+					pstmt.setString(5, koala.getColor());
+					pstmt.setInt(6, koala.getFuerza());
+					pstmt.setInt(7, koala.getInteligencia());
+					pstmt.setInt(8, koala.getHorasSueno());
+					pstmt.setInt(9, koala.getTiempoBerserk());
+					pstmt.setInt(10, koala.getAvestruz_idAvestruz());
+					pstmt.setInt(11, koala.getCarritoGolf_idCarritoGolf());
+
+					int num = pstmt.executeUpdate();
+
+					return num;
 				}
-			}
-
-			int num = stmt.executeUpdate(query);
-
-			return num;
-
-		} catch (Exception e) {
+			} else
+				return 0;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
 		}
@@ -111,40 +124,41 @@ public class KoalaDAO {
 		try {
 			String query = "UPDATE KOALA SET ";
 
-			Statement stmt = con.createStatement();
-
 			// Comprobamos que el avestruz no es nulo.
 			if (koala == null)
 				return 0;
 			// Comprobamos que los campos con string no son nulos
-			if (koala.getNombre() == null)
+			if (koala.getNombre() == null || koala.getNickGuerra() == null || koala.getColor() == null)
 				return 0;
-			if (koala.getNickGuerra() == null)
-				return 0;
-			if (koala.getColor() == null)
-				return 0;
+
+			KoalaDO koalaDelId = cargar(con, koala.getIdKoala());
 
 			if (koala.getIdKoala() != 0) {
-				ResultSet rs = stmt.executeQuery("SELECT * FROM KOALA WHERE idKoala=" + koala.getIdKoala());
-				if (rs != null) {
-					query += "nombre=" + koala.getNombre();
-					query += ", nickGuerra=" + koala.getNickGuerra();
-					query += ", edad=" + koala.getEdad();
-					query += ", color=" + koala.getColor();
-					query += ", fuerza=" + koala.getFuerza();
-					query += ", inteligencia=" + koala.getInteligencia();
-					query += ", horasSueno=" + koala.getHorasSueno();
-					query += ", tiempoBerserk=" + koala.getTiempoBerserk();
-					query += ", avestruz_idAvestruz=" + koala.getAvestruz_idAvestruz();
-					query += ", carritoGolf_idCarritoGolf=" + koala.getCarritoGolf_idCarritoGolf();
-				} else {
-					return 0;
-				}
-			}
-			int num = stmt.executeUpdate(query);
+				if (koalaDelId != null && koalaDelId.getIdKoala() == koala.getIdKoala()) {
+					query += "nombre = ?, nickGuerra = ?, edad = ?, color = ?, fuerza = ?, inteligencia = ?, horasSueno = ?, tiempoBerserk = ?, avestruz_idAvestruz = ?, carritoGolf_idCarritoGolf = ? WHERE idKoala = ?";
 
-			return num;
-		} catch (Exception e) {
+					PreparedStatement pstmt = con.prepareStatement(query);
+
+					pstmt.setString(1, koala.getNombre());
+					pstmt.setString(2, koala.getNickGuerra());
+					pstmt.setInt(3, koala.getEdad());
+					pstmt.setString(4, koala.getColor());
+					pstmt.setInt(5, koala.getFuerza());
+					pstmt.setInt(6, koala.getInteligencia());
+					pstmt.setInt(7, koala.getHorasSueno());
+					pstmt.setInt(8, koala.getTiempoBerserk());
+					pstmt.setInt(9, koala.getAvestruz_idAvestruz());
+					pstmt.setInt(10, koala.getCarritoGolf_idCarritoGolf());
+					pstmt.setInt(11, koala.getIdKoala());
+
+					int num = pstmt.executeUpdate();
+
+					return num;
+				} else
+					return 0;
+			} else
+				return 0;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
 		}
@@ -161,24 +175,59 @@ public class KoalaDAO {
 	 */
 	public static KoalaDO cargar(Connection con, int id) {
 		try {
-			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM KOALA WHERE idKoala = ?";
+
+			PreparedStatement pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, id);
+
 			KoalaDO koala = new KoalaDO();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM KOALA WHERE idKoala=" + id);
+
+			ResultSet rs = pstmt.executeQuery();
+
 			while (rs.next()) {
-				koala.setIdKoala(rs.getInt(1));
-				koala.setNombre(rs.getString(2));
-				koala.setNickGuerra(rs.getString(3));
-				koala.setEdad(rs.getInt(4));
-				koala.setColor(rs.getString(5));
-				koala.setFuerza(rs.getInt(6));
-				koala.setInteligencia(rs.getInt(7));
-				koala.setHorasSueno(rs.getInt(8));
-				koala.setTiempoBerserk(rs.getInt(9));
-				koala.setAvestruz_idAvestruz(rs.getInt(10));
-				koala.setCarritoGolf_idCarritoGolf(rs.getInt(11));
+				if (rs.getInt(1) == 0)
+					return null;
+				else {
+					koala.setIdKoala(rs.getInt(1));
+					koala.setNombre(rs.getString(2));
+					koala.setNickGuerra(rs.getString(3));
+					koala.setEdad(rs.getInt(4));
+					koala.setColor(rs.getString(5));
+					koala.setFuerza(rs.getInt(6));
+					koala.setInteligencia(rs.getInt(7));
+					koala.setHorasSueno(rs.getInt(8));
+					koala.setTiempoBerserk(rs.getInt(9));
+					koala.setAvestruz_idAvestruz(rs.getInt(10));
+					koala.setCarritoGolf_idCarritoGolf(rs.getInt(11));
+				}
 			}
 			return koala;
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static ArrayList<FrutaDO> cargarFrutas(int id, Connection con) {
+		try {
+			String query = "SELECT * FROM FRUTA WHERE idFruta = (SELECT fruta_idFruta FROM KOALA_HAS_FRUTA WHERE koala_idKoala = ?)";
+
+			PreparedStatement pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, id);
+
+			ArrayList<FrutaDO> frutas = new ArrayList<FrutaDO>();
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				FrutaDO fruta = new FrutaDO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5));
+				frutas.add(fruta);
+			}
+			return frutas;
+		} catch (SQLException e) {
+			// TODO: handle exception
 			e.printStackTrace();
 			return null;
 		}

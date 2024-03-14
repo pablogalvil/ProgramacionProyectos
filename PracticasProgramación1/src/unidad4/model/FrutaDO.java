@@ -5,14 +5,14 @@ public class FrutaDO {
 	private String nombre;
 	private int danio;
 	private int puntosRec;
-	private int tipo;
+	private String tipo;
 
 	public FrutaDO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FrutaDO(int idFruta, String nombre, int danio, int puntosRec, int tipo) {
+	public FrutaDO(int idFruta, String nombre, int danio, int puntosRec, String tipo) {
 		super();
 		this.idFruta = idFruta;
 		this.nombre = nombre;
@@ -80,14 +80,14 @@ public class FrutaDO {
 	/**
 	 * @return the tipo
 	 */
-	public int getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
 	/**
 	 * @param tipo the tipo to set
 	 */
-	public void setTipo(int tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 

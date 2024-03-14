@@ -1,8 +1,9 @@
 package unidad4.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 public class CarritoGolfDAO {
 	/**
@@ -14,13 +15,19 @@ public class CarritoGolfDAO {
 	 */
 	public static int eliminar(int id, Connection con) {
 		try {
+			String query = "DELETE FROM CARRITOGOLF WHERE idCarritoGolf = ?";
 
-			Statement stmt = con.createStatement();
+			PreparedStatement pstmt = con.prepareStatement(query);
 
-			int num = stmt.executeUpdate("DELETE FROM CARRITOGOLF WHERE idCarritoGolf=" + id);
+			pstmt.setInt(1, id);
 
-			return num;
-		} catch (Exception e) {
+			int num = pstmt.executeUpdate();
+
+			if (num == 0)
+				return -1;
+			else
+				return 0;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return -1;
 		}
@@ -42,43 +49,49 @@ public class CarritoGolfDAO {
 		try {
 			String query = "";
 
-			Statement stmt = con.createStatement();
-
 			// Comprobamos que el avestruz no es nulo.
 			if (carritoGolf == null)
 				return 0;
 			// Comprobamos que los campos con string no son nulos
-			if (carritoGolf.getNumSerie() == null)
+			if (carritoGolf.getNumSerie() == null || carritoGolf.getMarca() == null)
 				return 0;
-			if (carritoGolf.getMarca() == null)
-				return 0;
+
+			CarritoGolfDO carritoDelId = cargar(con, carritoGolf.getIdCarritoGolf());
 
 			if (carritoGolf.getIdCarritoGolf() != 0) {
-				ResultSet rs = stmt.executeQuery(
-						"SELECT * FROM CARRITOGOLF WHERE idCarritoGolf=" + carritoGolf.getIdCarritoGolf());
-				if (rs == null) {
-					query = "INSERT INTO CARRITOGOLF VALUES(idCarritoGolf, numSerie, marca, velocidadMax, armamento, municion) ("
-							+ carritoGolf.getIdCarritoGolf();
-					query += ",'" + carritoGolf.getNumSerie();
-					query += "','" + carritoGolf.getMarca();
-					query += "'," + carritoGolf.getVelocidadMax();
-					query += "," + carritoGolf.getArmamento();
-					query += "," + carritoGolf.getMunicion() + ")";
+				if (carritoDelId != null && carritoDelId.getIdCarritoGolf() == carritoGolf.getIdCarritoGolf()) {
+					query = "INSERT INTO CARRITOGOLF (numSerie, marca, velocidadMax, armamento, municion) VALUES (?,?,?,?,?)";
+
+					PreparedStatement pstmt = con.prepareStatement(query);
+
+					pstmt.setString(1, carritoGolf.getNumSerie());
+					pstmt.setString(2, carritoGolf.getMarca());
+					pstmt.setInt(3, carritoGolf.getVelocidadMax());
+					pstmt.setInt(4, carritoGolf.getArmamento());
+					pstmt.setInt(5, carritoGolf.getMunicion());
+
+					int num = pstmt.executeUpdate();
+
+					return num;
 				} else {
-					query = "INSERT INTO CARRITOGOLF VALUES(idCarritoGolf, numSerie, marca, velocidadMax, armamento, municion) ('"
-							+ carritoGolf.getNumSerie();
-					query += "','" + carritoGolf.getMarca();
-					query += "'," + carritoGolf.getVelocidadMax();
-					query += "," + carritoGolf.getArmamento();
-					query += "," + carritoGolf.getMunicion() + ")";
+					query = "INSERT INTO CARRITOGOLF (idCarritoGolf, numSerie, marca, velocidadMax, armamento, municion) VALUES (?,?,?,?,?,?)";
+
+					PreparedStatement pstmt = con.prepareStatement(query);
+
+					pstmt.setInt(1, carritoGolf.getIdCarritoGolf());
+					pstmt.setString(2, carritoGolf.getNumSerie());
+					pstmt.setString(3, carritoGolf.getMarca());
+					pstmt.setInt(4, carritoGolf.getVelocidadMax());
+					pstmt.setInt(5, carritoGolf.getArmamento());
+					pstmt.setInt(6, carritoGolf.getMunicion());
+
+					int num = pstmt.executeUpdate();
+
+					return num;
 				}
-			}
-
-			int num = stmt.executeUpdate(query);
-
-			return num;
-
-		} catch (Exception e) {
+			} else
+				return 0;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
 		}
@@ -100,35 +113,37 @@ public class CarritoGolfDAO {
 		try {
 			String query = "UPDATE CARRITOGOLF SET ";
 
-			Statement stmt = con.createStatement();
-
 			// Comprobamos que el avestruz no es nulo.
 			if (carritoGolf == null)
 				return 0;
 			// Comprobamos que los campos con string no son nulos
-			if (carritoGolf.getNumSerie() == null)
-				return 0;
-			if (carritoGolf.getMarca() == null)
+			if (carritoGolf.getNumSerie() == null || carritoGolf.getMarca() == null)
 				return 0;
 
+			CarritoGolfDO carritoDelId = cargar(con, carritoGolf.getIdCarritoGolf());
+
 			if (carritoGolf.getIdCarritoGolf() != 0) {
-				ResultSet rs = stmt.executeQuery(
-						"SELECT * FROM CARRITOGOLF WHERE idCarritoGolf=" + carritoGolf.getIdCarritoGolf());
-				if (rs != null) {
-					query += "numSerie=" + carritoGolf.getNumSerie();
-					query += ", marca=" + carritoGolf.getMarca();
-					query += ", velocidadMax=" + carritoGolf.getVelocidadMax();
-					query += ", armamento=" + carritoGolf.getArmamento();
-					query += ", municion=" + carritoGolf.getMunicion();
-					query += " WHERE idCarritoGolf=" + carritoGolf.getIdCarritoGolf();
+				if (carritoDelId != null && carritoDelId.getIdCarritoGolf() == carritoGolf.getIdCarritoGolf()) {
+					query += "numSerie = ?, marca = ?, velocidadMax = ?, armamento = ?, municion = ? WHERE idCarritoGolf = ?";
+
+					PreparedStatement pstmt = con.prepareStatement(query);
+
+					pstmt.setString(1, carritoGolf.getNumSerie());
+					pstmt.setString(2, carritoGolf.getMarca());
+					pstmt.setInt(3, carritoGolf.getVelocidadMax());
+					pstmt.setInt(4, carritoGolf.getArmamento());
+					pstmt.setInt(5, carritoGolf.getMunicion());
+					pstmt.setInt(6, carritoGolf.getIdCarritoGolf());
+
+					int num = pstmt.executeUpdate();
+
+					return num;
 				} else {
 					return 0;
 				}
-			}
-			int num = stmt.executeUpdate(query);
-
-			return num;
-		} catch (Exception e) {
+			} else
+				return 0;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
 		}
@@ -145,19 +160,30 @@ public class CarritoGolfDAO {
 	 */
 	public static CarritoGolfDO cargar(Connection con, int id) {
 		try {
-			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM CARRITOGOLF WHERE idCarritoGolf = ?";
+
+			PreparedStatement pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, id);
+
 			CarritoGolfDO carritoGolf = new CarritoGolfDO();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM CARRITOGOLF WHERE idCarritoGolf=" + id);
+
+			ResultSet rs = pstmt.executeQuery();
+
 			while (rs.next()) {
-				carritoGolf.setIdCarritoGolf(rs.getInt(1));
-				carritoGolf.setNumSerie(rs.getString(2));
-				carritoGolf.setMarca(rs.getString(3));
-				carritoGolf.setVelocidadMax(rs.getInt(4));
-				carritoGolf.setArmamento(rs.getInt(5));
-				carritoGolf.setMunicion(rs.getInt(6));
+				if (rs.getInt(1) == 0)
+					return null;
+				else {
+					carritoGolf.setIdCarritoGolf(rs.getInt(1));
+					carritoGolf.setNumSerie(rs.getString(2));
+					carritoGolf.setMarca(rs.getString(3));
+					carritoGolf.setVelocidadMax(rs.getInt(4));
+					carritoGolf.setArmamento(rs.getInt(5));
+					carritoGolf.setMunicion(rs.getInt(6));
+				}
 			}
 			return carritoGolf;
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}

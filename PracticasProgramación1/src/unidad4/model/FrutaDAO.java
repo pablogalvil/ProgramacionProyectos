@@ -1,8 +1,9 @@
 package unidad4.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 public class FrutaDAO {
 	/**
@@ -14,13 +15,19 @@ public class FrutaDAO {
 	 */
 	public static int eliminar(int id, Connection con) {
 		try {
+			String query = "DELETE FROM FRUTA WHERE idFruta = ?";
 
-			Statement stmt = con.createStatement();
+			PreparedStatement pstmt = con.prepareStatement(query);
 
-			int num = stmt.executeUpdate("DELETE FROM FRUTA WHERE idFruta=" + id);
+			pstmt.setInt(1, id);
 
-			return num;
-		} catch (Exception e) {
+			int num = pstmt.executeUpdate();
+
+			if (num == 0)
+				return -1;
+			else
+				return 0;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return -1;
 		}
@@ -42,36 +49,47 @@ public class FrutaDAO {
 		try {
 			String query = "";
 
-			Statement stmt = con.createStatement();
-
 			// Comprobamos que el avestruz no es nulo.
 			if (fruta == null)
 				return 0;
 			// Comprobamos que los campos con string no son nulos
-			if (fruta.getNombre() == null)
+			if (fruta.getNombre() == null || fruta.getTipo() == null)
 				return 0;
 
+			FrutaDO frutaDelId = cargar(con, fruta.getIdFruta());
+
 			if (fruta.getIdFruta() != 0) {
-				ResultSet rs = stmt.executeQuery("SELECT * FROM FRUTA WHERE idFruta=" + fruta.getIdFruta());
-				if (rs == null) {
-					query = "INSERT INTO FRUTA VALUES(idFruta, nombre, danio, puntosRec, tipo) (" + fruta.getIdFruta();
-					query += ",'" + fruta.getNombre();
-					query += "'," + fruta.getDanio();
-					query += "," + fruta.getPuntosRec();
-					query += "," + fruta.getTipo() + ")";
+				if (frutaDelId != null && frutaDelId.getIdFruta() == fruta.getIdFruta()) {
+					query = "INSERT INTO FRUTA (nombre, danio, puntosRec, tipo) VALUES(?, ?, ?, ?)";
+
+					PreparedStatement pstmt = con.prepareStatement(query);
+
+					pstmt.setString(1, fruta.getNombre());
+					pstmt.setInt(2, fruta.getDanio());
+					pstmt.setInt(3, fruta.getPuntosRec());
+					pstmt.setString(4, fruta.getTipo());
+
+					int num = pstmt.executeUpdate();
+
+					return num;
 				} else {
-					query = "INSERT INTO FRUTA VALUES(idFruta, nombre, danio, puntosRec, tipo) (" + fruta.getNombre();
-					query += "'," + fruta.getDanio();
-					query += "," + fruta.getPuntosRec();
-					query += "," + fruta.getTipo() + ")";
+					query = "INSERT INTO FRUTA (idFruta, nombre, danio, puntosRec, tipo) VALUES(?, ?, ?, ?, ?)";
+
+					PreparedStatement pstmt = con.prepareStatement(query);
+
+					pstmt.setInt(1, fruta.getIdFruta());
+					pstmt.setString(2, fruta.getNombre());
+					pstmt.setInt(3, fruta.getDanio());
+					pstmt.setInt(4, fruta.getPuntosRec());
+					pstmt.setString(5, fruta.getTipo());
+
+					int num = pstmt.executeUpdate();
+
+					return num;
 				}
-			}
-
-			int num = stmt.executeUpdate(query);
-
-			return num;
-
-		} catch (Exception e) {
+			} else
+				return 0;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
 		}
@@ -93,30 +111,34 @@ public class FrutaDAO {
 		try {
 			String query = "UPDATE FRUTA SET ";
 
-			Statement stmt = con.createStatement();
-
 			// Comprobamos que el avestruz no es nulo.
 			if (fruta == null)
 				return 0;
 			// Comprobamos que los campos con string no son nulos
-			if (fruta.getNombre() == null)
+			if (fruta.getNombre() == null || fruta.getTipo() == null)
 				return 0;
 
-			if (fruta.getIdFruta() != 0) {
-				ResultSet rs = stmt.executeQuery("SELECT * FROM FRUTA WHERE idFruta=" + fruta.getIdFruta());
-				if (rs != null) {
-					query += "nombre=" + fruta.getNombre();
-					query += ", danio=" + fruta.getDanio();
-					query += ", puntosRec=" + fruta.getPuntosRec();
-					query += ", tipo=" + fruta.getTipo();
-				} else {
-					return 0;
-				}
-			}
-			int num = stmt.executeUpdate(query);
+			FrutaDO frutaDelId = cargar(con, fruta.getIdFruta());
 
-			return num;
-		} catch (Exception e) {
+			if (fruta.getIdFruta() != 0) {
+				if (frutaDelId != null && frutaDelId.getIdFruta() == fruta.getIdFruta()) {
+					query += "nombre = ?, danio = ?, puntosRec = ?, tipo = ? WHERE idFruta = ?";
+
+					PreparedStatement pstmt = con.prepareStatement(query);
+
+					pstmt.setString(1, fruta.getNombre());
+					pstmt.setInt(2, fruta.getDanio());
+					pstmt.setInt(3, fruta.getPuntosRec());
+					pstmt.setString(4, fruta.getTipo());
+
+					int num = pstmt.executeUpdate();
+
+					return num;
+				} else
+					return 0;
+			} else
+				return 0;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
 		}
@@ -133,18 +155,29 @@ public class FrutaDAO {
 	 */
 	public static FrutaDO cargar(Connection con, int id) {
 		try {
-			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM FRUTA WHERE idFruta = ?";
+
+			PreparedStatement pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, id);
+
 			FrutaDO fruta = new FrutaDO();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM FRUTA WHERE idFruta=" + id);
+
+			ResultSet rs = pstmt.executeQuery();
+
 			while (rs.next()) {
-				fruta.setIdFruta(rs.getInt(1));
-				fruta.setNombre(rs.getString(2));
-				fruta.setDanio(rs.getInt(3));
-				fruta.setPuntosRec(rs.getInt(4));
-				fruta.setTipo(rs.getInt(5));
+				if (rs.getInt(1) == 0)
+					return null;
+				else {
+					fruta.setIdFruta(rs.getInt(1));
+					fruta.setNombre(rs.getString(2));
+					fruta.setDanio(rs.getInt(3));
+					fruta.setPuntosRec(rs.getInt(4));
+					fruta.setTipo(rs.getString(5));
+				}
 			}
 			return fruta;
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}

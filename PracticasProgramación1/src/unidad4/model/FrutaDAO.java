@@ -130,6 +130,7 @@ public class FrutaDAO {
 					pstmt.setInt(2, fruta.getDanio());
 					pstmt.setInt(3, fruta.getPuntosRec());
 					pstmt.setString(4, fruta.getTipo());
+					pstmt.setInt(5, fruta.getIdFruta());
 
 					int num = pstmt.executeUpdate();
 

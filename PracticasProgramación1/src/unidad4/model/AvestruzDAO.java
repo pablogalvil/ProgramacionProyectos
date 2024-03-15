@@ -317,8 +317,14 @@ public class AvestruzDAO {
 				}
 				break;
 			case "cadena":
-				if (param2 instanceof String)
+				try {
+					int num = Integer.valueOf(param2);
+					return null;
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
 					query += " " + param2;
+				}
 				break;
 			default:
 				return null;

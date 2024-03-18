@@ -16,14 +16,17 @@ public class KoalaDAO {
 	 */
 	public static int eliminar(int id, Connection con) {
 		try {
+			// Creamos la query con la condicion de que tenga el id dado
 			String query = "DELETE FROM KOALA WHERE idKoala = ?";
 
 			PreparedStatement pstmt = con.prepareStatement(query);
 
+			// Metemos el id en el prepared statement para completar la query
 			pstmt.setInt(1, id);
 
 			int num = pstmt.executeUpdate();
 
+			// Si el num es 0, devuelve -1, sino, devuelve 0
 			if (num == 0)
 				return -1;
 			else
@@ -44,7 +47,7 @@ public class KoalaDAO {
 	 * 
 	 * @param koala
 	 * @param con
-	 * @return 1 si se ha podido insertar y 0 sino
+	 * @return 0 si se ha podido insertar y -1 sino
 	 */
 	public static int insertar(KoalaDO koala, Connection con) {
 		try {
@@ -52,19 +55,22 @@ public class KoalaDAO {
 
 			// Comprobamos que el avestruz no es nulo.
 			if (koala == null)
-				return 0;
+				return -1;
 			// Comprobamos que los campos con string no son nulos
 			if (koala.getNombre() == null || koala.getNickGuerra() == null || koala.getColor() == null)
-				return 0;
+				return -1;
 
+			// Cargamos un koala con el id dado para compararlo y ver si es null
 			KoalaDO koalaDelId = cargar(con, koala.getIdKoala());
 
-			if (koala.getIdKoala() != 0) {
+			if (koala.getIdKoala() > 0) {
 				if (koalaDelId != null && koalaDelId.getIdKoala() == koala.getIdKoala()) {
+					// Creamos la query sin el id
 					query = "INSERT INTO KOALA (nombre, nickGuerra, edad, color, fuerza, inteligencia, horasSueno, tiempoBerserk, avestruz_idAvestruz, carritoGolf_idCarritoGolf) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 					PreparedStatement pstmt = con.prepareStatement(query);
 
+					// Insertamos los datos en el prepared statement
 					pstmt.setString(1, koala.getNombre());
 					pstmt.setString(2, koala.getNickGuerra());
 					pstmt.setInt(3, koala.getEdad());
@@ -78,12 +84,18 @@ public class KoalaDAO {
 
 					int num = pstmt.executeUpdate();
 
-					return num;
+					// Si el num es 0, devuelve -1, sino, devuelve 0
+					if (num == 0)
+						return -1;
+					else
+						return 0;
 				} else {
+					// Creamos la query con el id
 					query = "INSERT INTO KOALA (idKoala, nombre, nickGuerra, edad, color, fuerza, inteligencia, horasSueno, tiempoBerserk, avestruz_idAvestruz, carritoGolf_idCarritoGolf) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
 					PreparedStatement pstmt = con.prepareStatement(query);
 
+					// Insertamos los datos en el prepared statement
 					pstmt.setInt(1, koala.getIdKoala());
 					pstmt.setString(2, koala.getNombre());
 					pstmt.setString(3, koala.getNickGuerra());
@@ -98,13 +110,17 @@ public class KoalaDAO {
 
 					int num = pstmt.executeUpdate();
 
-					return num;
+					// Si el num es 0, devuelve -1, sino, devuelve 0
+					if (num == 0)
+						return -1;
+					else
+						return 0;
 				}
 			} else
-				return 0;
+				return -1;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 	}
 
@@ -117,7 +133,7 @@ public class KoalaDAO {
 	 * 
 	 * @param koala
 	 * @param con
-	 * @return 1 si se ha actualizado, 0 sino
+	 * @return 0 si se ha actualizado, -1 sino
 	 */
 
 	public static int actualizar(KoalaDO koala, Connection con) {
@@ -126,19 +142,22 @@ public class KoalaDAO {
 
 			// Comprobamos que el avestruz no es nulo.
 			if (koala == null)
-				return 0;
+				return -1;
 			// Comprobamos que los campos con string no son nulos
 			if (koala.getNombre() == null || koala.getNickGuerra() == null || koala.getColor() == null)
-				return 0;
+				return -1;
 
+			// Creamos un koala con el id dado para compararlo y ver si es null
 			KoalaDO koalaDelId = cargar(con, koala.getIdKoala());
 
-			if (koala.getIdKoala() != 0) {
+			if (koala.getIdKoala() > 0) {
 				if (koalaDelId != null && koalaDelId.getIdKoala() == koala.getIdKoala()) {
+					// Creamos la query sin el id
 					query += "nombre = ?, nickGuerra = ?, edad = ?, color = ?, fuerza = ?, inteligencia = ?, horasSueno = ?, tiempoBerserk = ?, avestruz_idAvestruz = ?, carritoGolf_idCarritoGolf = ? WHERE idKoala = ?";
 
 					PreparedStatement pstmt = con.prepareStatement(query);
 
+					// Metemos los datos en el prepared statement
 					pstmt.setString(1, koala.getNombre());
 					pstmt.setString(2, koala.getNickGuerra());
 					pstmt.setInt(3, koala.getEdad());
@@ -153,14 +172,18 @@ public class KoalaDAO {
 
 					int num = pstmt.executeUpdate();
 
-					return num;
+					// Si el num es 0, devuelve -1, sino, devuelve 0
+					if (num == 0)
+						return -1;
+					else
+						return 0;
 				} else
-					return 0;
+					return -1;
 			} else
-				return 0;
+				return -1;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 	}
 
@@ -175,20 +198,26 @@ public class KoalaDAO {
 	 */
 	public static KoalaDO cargar(Connection con, int id) {
 		try {
+			// Creamos la query con la condicion de que tenga el id dado
 			String query = "SELECT * FROM KOALA WHERE idKoala = ?";
 
 			PreparedStatement pstmt = con.prepareStatement(query);
 
+			// Metemos el id en el prepared statement
 			pstmt.setInt(1, id);
 
+			// Creamos el koala que devolveremos
 			KoalaDO koala = new KoalaDO();
 
 			ResultSet rs = pstmt.executeQuery();
 
+			// Hacemos un bucle que pasara siempre que haya algo en el resultset
 			while (rs.next()) {
+				// Si el id es 0, devolvemos null para no hacer más código innecesariamente
 				if (rs.getInt(1) == 0)
 					return null;
 				else {
+					// Insertamos los datos en el koala
 					koala.setIdKoala(rs.getInt(1));
 					koala.setNombre(rs.getString(2));
 					koala.setNickGuerra(rs.getString(3));
@@ -209,19 +238,37 @@ public class KoalaDAO {
 		}
 	}
 
+	/**
+	 * ArrayList<FrutaDO> cargarFrutas (int id,Connection con) Igual que el primero
+	 * de AvestruzDAO pero devolviendo las frutas de el koala cuyo id se ha
+	 * introducido.
+	 * 
+	 * @param id
+	 * @param con
+	 * @return
+	 */
 	public static ArrayList<FrutaDO> cargarFrutas(int id, Connection con) {
 		try {
+			// Hacemos la query con la condicion de que el id de la fruta sea igual que el
+			// resultado de la subconsulta que se hace para saber el id de la fruta en la
+			// tabla de koala_has_fruta, ya que es ahi donde esta la relacion entre koala y
+			// fruta.
 			String query = "SELECT * FROM FRUTA WHERE idFruta = (SELECT fruta_idFruta FROM KOALA_HAS_FRUTA WHERE koala_idKoala = ?)";
 
 			PreparedStatement pstmt = con.prepareStatement(query);
 
+			// Insertamos el id en el prepared statement
 			pstmt.setInt(1, id);
 
+			// Creamos el arraylist que devolveremos
 			ArrayList<FrutaDO> frutas = new ArrayList<FrutaDO>();
 
 			ResultSet rs = pstmt.executeQuery();
 
+			// Hacemos un bucle que pasara siempre que haya algo en el resultset
 			while (rs.next()) {
+				// Creamos una fruta temporal, añadimos los datos y añadimos la fruta temporal
+				// al arraylist
 				FrutaDO fruta = new FrutaDO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5));
 				frutas.add(fruta);
 			}

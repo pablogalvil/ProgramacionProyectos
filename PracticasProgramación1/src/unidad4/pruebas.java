@@ -15,6 +15,11 @@ import unidad4.utils.UtilsBD;
 public class pruebas {
 
 	public static void main(String[] args) {
+		// Las pruebas que he puesto son correctas e incorrectas la primera vez que las
+		// ejecutas, despues ya no saldran porque he insertado en sitios que ya estaban,
+		// pero igualmente puedes hacer drop database y volver a insertarla o cambiar
+		// las pruebas.
+
 		Connection con = UtilsBD.conectarBD();
 		System.out.println("***********************PRUEBAS CARRITO GOLF***********************");
 		System.out.println(" ");
@@ -103,22 +108,39 @@ public class pruebas {
 		System.out.println("Pruebas cargar correcta : " + AvestruzDAO.cargar(con, 5));
 		System.out.println("Pruebas cargar incorrecta : " + AvestruzDAO.cargar(con, 30));
 
+		System.out.println(" ");
+
 		System.out.println("Pruebas insertar correcta : " + AvestruzDAO.insertar(avestruzSinId, con));
 		System.out.println("Pruebas insertar incorrecta : " + AvestruzDAO.insertar(avestruzConId, con));
+
+		System.out.println(" ");
 
 		System.out.println("Pruebas actualizar correcta : " + AvestruzDAO.actualizar(avestruzActualizarConId, con));
 		System.out.println("Pruebas actualizar incorrecta : " + AvestruzDAO.actualizar(avestruzActualizarSinId, con));
 
+		System.out.println(" ");
+
 		System.out.println("Pruebas cargarLacayos correcta : " + AvestruzDAO.cargarLacayos(4, con));
 		System.out.println("Pruebas cargarLacayos incorrecta : " + AvestruzDAO.cargarLacayos(40, con));
+
+		System.out.println(" ");
 
 		System.out.println("Pruebas cantidadFrutas correcta : " + AvestruzDAO.cantidadFrutas(2, con));
 		System.out.println("Pruebas cantidadFrutas incorrecta : " + AvestruzDAO.cantidadFrutas(20, con));
 
+		System.out.println(" ");
+
 		System.out.println(
 				"Pruebas cargarLacayosFiltrado correcta : " + AvestruzDAO.cargarLacayosFiltrado(con, 4, paramCorrecto));
-		System.out.println("Pruebas cargarLacayosFiltrado correcta : "
+		System.out.println("Pruebas cargarLacayosFiltrado incorrecta : "
 				+ AvestruzDAO.cargarLacayosFiltrado(con, 4, paramIncorrecto));
+
+		System.out.println(" ");
+
+		System.out.println(
+				"Pruebas cargarLacayosPaginado correcta : " + AvestruzDAO.cargarLacayosPaginado(con, 4, 10, 2));
+		System.out.println(
+				"Pruebas cargarLacayosPaginado incorrecta : " + AvestruzDAO.cargarLacayosPaginado(con, 4, 20, 2));
 	}
 
 }

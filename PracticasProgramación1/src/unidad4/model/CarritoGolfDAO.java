@@ -43,7 +43,7 @@ public class CarritoGolfDAO {
 	 * 
 	 * @param carritoGolf
 	 * @param con
-	 * @return 1 si se ha podido insertar y 0 sino
+	 * @return 0 si se ha podido insertar y -1 sino
 	 */
 	public static int insertar(CarritoGolfDO carritoGolf, Connection con) {
 		try {
@@ -51,14 +51,14 @@ public class CarritoGolfDAO {
 
 			// Comprobamos que el avestruz no es nulo.
 			if (carritoGolf == null)
-				return 0;
+				return -1;
 			// Comprobamos que los campos con string no son nulos
 			if (carritoGolf.getNumSerie() == null || carritoGolf.getMarca() == null)
-				return 0;
+				return -1;
 
 			CarritoGolfDO carritoDelId = cargar(con, carritoGolf.getIdCarritoGolf());
 
-			if (carritoGolf.getIdCarritoGolf() != 0) {
+			if (carritoGolf.getIdCarritoGolf() > 0) {
 				if (carritoDelId != null && carritoDelId.getIdCarritoGolf() == carritoGolf.getIdCarritoGolf()) {
 					query = "INSERT INTO CARRITOGOLF (numSerie, marca, velocidadMax, armamento, municion) VALUES (?,?,?,?,?)";
 
@@ -72,7 +72,11 @@ public class CarritoGolfDAO {
 
 					int num = pstmt.executeUpdate();
 
-					return num;
+					// Si el num es 0, devuelve -1, sino, devuelve 0
+					if (num == 0)
+						return -1;
+					else
+						return 0;
 				} else {
 					query = "INSERT INTO CARRITOGOLF (idCarritoGolf, numSerie, marca, velocidadMax, armamento, municion) VALUES (?,?,?,?,?,?)";
 
@@ -87,13 +91,17 @@ public class CarritoGolfDAO {
 
 					int num = pstmt.executeUpdate();
 
-					return num;
+					// Si el num es 0, devuelve -1, sino, devuelve 0
+					if (num == 0)
+						return -1;
+					else
+						return 0;
 				}
 			} else
-				return 0;
+				return -1;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 	}
 
@@ -106,7 +114,7 @@ public class CarritoGolfDAO {
 	 * 
 	 * @param carritoGolf
 	 * @param con
-	 * @return 1 si se ha actualizado, 0 sino
+	 * @return 0 si se ha actualizado, -1 sino
 	 */
 
 	public static int actualizar(CarritoGolfDO carritoGolf, Connection con) {
@@ -115,19 +123,22 @@ public class CarritoGolfDAO {
 
 			// Comprobamos que el avestruz no es nulo.
 			if (carritoGolf == null)
-				return 0;
+				return -1;
 			// Comprobamos que los campos con string no son nulos
 			if (carritoGolf.getNumSerie() == null || carritoGolf.getMarca() == null)
-				return 0;
+				return -1;
 
+			// Creamos un carrito con el id dado para compararlo y ver si es null
 			CarritoGolfDO carritoDelId = cargar(con, carritoGolf.getIdCarritoGolf());
 
-			if (carritoGolf.getIdCarritoGolf() != 0) {
+			if (carritoGolf.getIdCarritoGolf() > 0) {
 				if (carritoDelId != null && carritoDelId.getIdCarritoGolf() == carritoGolf.getIdCarritoGolf()) {
+					// Creamos la query con
 					query += "numSerie = ?, marca = ?, velocidadMax = ?, armamento = ?, municion = ? WHERE idCarritoGolf = ?";
 
 					PreparedStatement pstmt = con.prepareStatement(query);
 
+					// Metemos los datos en el prepared statement
 					pstmt.setString(1, carritoGolf.getNumSerie());
 					pstmt.setString(2, carritoGolf.getMarca());
 					pstmt.setInt(3, carritoGolf.getVelocidadMax());
@@ -137,15 +148,19 @@ public class CarritoGolfDAO {
 
 					int num = pstmt.executeUpdate();
 
-					return num;
+					// Si el num es 0, devuelve -1, sino, devuelve 0
+					if (num == 0)
+						return -1;
+					else
+						return 0;
 				} else {
-					return 0;
+					return -1;
 				}
 			} else
-				return 0;
+				return -1;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 	}
 

@@ -44,7 +44,7 @@ public class AvestruzDAO {
 	 * 
 	 * @param avestruz
 	 * @param con
-	 * @return 1 si se ha podido insertar y 0 sino
+	 * @return 0 si se ha podido insertar y -1 sino
 	 */
 	public static int insertar(AvestruzDO avestruz, Connection con) {
 		try {
@@ -52,14 +52,14 @@ public class AvestruzDAO {
 
 			// Comprobamos que el avestruz no es nulo.
 			if (avestruz == null)
-				return 0;
+				return -1;
 			// Comprobamos que los campos con string no son nulos
 			if (avestruz.getNombre() == null || avestruz.getNickGuerra() == null)
-				return 0;
+				return -1;
 
 			AvestruzDO avestruzDelId = cargar(con, avestruz.getIdAvestruz());
 
-			if (avestruz.getIdAvestruz() != 0) {
+			if (avestruz.getIdAvestruz() > 0) {
 				if (avestruzDelId != null && avestruzDelId.getIdAvestruz() == avestruz.getIdAvestruz()) {
 					query = "INSERT INTO AVESTRUZ (nombre, nickGuerra, edad, altura, nivelMalaLeche, numHuevos) VALUES (?,?,?,?,?,?)";
 
@@ -74,7 +74,10 @@ public class AvestruzDAO {
 
 					int num = pstmt.executeUpdate();
 
-					return num;
+					if (num == 0)
+						return -1;
+					else
+						return 0;
 				} else {
 					query = "INSERT INTO AVESTRUZ (idAvestruz, nombre, nickGuerra, edad, altura, nivelMalaLeche, numHuevos) VALUES (?,?,?,?,?,?,?)";
 
@@ -90,13 +93,16 @@ public class AvestruzDAO {
 
 					int num = pstmt.executeUpdate();
 
-					return num;
+					if (num == 0)
+						return -1;
+					else
+						return 0;
 				}
 			} else
-				return 0;
+				return -1;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 	}
 
@@ -109,7 +115,7 @@ public class AvestruzDAO {
 	 * 
 	 * @param avestruz
 	 * @param con
-	 * @return 1 si se ha actualizado, 0 sino
+	 * @return 0 si se ha actualizado, -1 sino
 	 */
 
 	public static int actualizar(AvestruzDO avestruz, Connection con) {
@@ -118,14 +124,14 @@ public class AvestruzDAO {
 
 			// Comprobamos que el avestruz no es nulo.
 			if (avestruz == null)
-				return 0;
+				return -1;
 			// Comprobamos que los campos con string no son nulos
 			if (avestruz.getNombre() == null || avestruz.getNickGuerra() == null)
-				return 0;
+				return -1;
 
 			AvestruzDO avestruzDelId = cargar(con, avestruz.getIdAvestruz());
 
-			if (avestruz.getIdAvestruz() != 0) {
+			if (avestruz.getIdAvestruz() > 0) {
 				if (avestruzDelId != null && avestruzDelId.getIdAvestruz() == avestruz.getIdAvestruz()) {
 					query += "nombre = ?, nickGuerra = ?, edad = ?, altura = ?, nivelMalaLeche = ?, numHuevos = ? WHERE idAvestruz = ?";
 
@@ -141,16 +147,19 @@ public class AvestruzDAO {
 
 					int num = pstmt.executeUpdate();
 
-					return num;
+					if (num == 0)
+						return -1;
+					else
+						return 0;
 				} else {
-					return 0;
+					return -1;
 				}
 			} else
-				return 0;
+				return -1;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 	}
 
@@ -247,6 +256,8 @@ public class AvestruzDAO {
 			pstmt.setInt(1, idAvestruz);
 
 			ResultSet rs = pstmt.executeQuery();
+
+			rs.next();
 
 			int resultado = rs.getInt(1);
 

@@ -5,7 +5,7 @@ package unidad4.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class UtilsBD {
+public class UtilsT {
 
 	public static Connection conectarBD() {
 		try {

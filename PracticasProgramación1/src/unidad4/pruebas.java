@@ -10,7 +10,7 @@ import unidad4.model.FrutaDAO;
 import unidad4.model.FrutaDO;
 import unidad4.model.KoalaDAO;
 import unidad4.model.KoalaDO;
-import unidad4.utils.UtilsBD;
+import unidad4.utils.UtilsT;
 
 public class pruebas {
 
@@ -20,7 +20,7 @@ public class pruebas {
 		// pero igualmente puedes hacer drop database y volver a insertarla o cambiar
 		// las pruebas.
 
-		Connection con = UtilsBD.conectarBD();
+		Connection con = UtilsT.conectarBD();
 		System.out.println("***********************PRUEBAS CARRITO GOLF***********************");
 		System.out.println(" ");
 

@@ -15,14 +15,17 @@ public class CarritoGolfDAO {
 	 */
 	public static int eliminar(int id, Connection con) {
 		try {
+			// Creamos la query con la condicion de que tenga el id dado
 			String query = "DELETE FROM CARRITOGOLF WHERE idCarritoGolf = ?";
 
 			PreparedStatement pstmt = con.prepareStatement(query);
 
+			// Metemos el id en el prepared statement para completar la query
 			pstmt.setInt(1, id);
 
 			int num = pstmt.executeUpdate();
 
+			// Si el num es 0, devuelve -1, sino, devuelve 0
 			if (num == 0)
 				return -1;
 			else
@@ -49,21 +52,24 @@ public class CarritoGolfDAO {
 		try {
 			String query = "";
 
-			// Comprobamos que el avestruz no es nulo.
+			// Comprobamos que el carrito no es nulo.
 			if (carritoGolf == null)
 				return -1;
 			// Comprobamos que los campos con string no son nulos
 			if (carritoGolf.getNumSerie() == null || carritoGolf.getMarca() == null)
 				return -1;
 
+			// Creamos un carrito con el id dado para compararlo y ver si es null
 			CarritoGolfDO carritoDelId = cargar(con, carritoGolf.getIdCarritoGolf());
 
 			if (carritoGolf.getIdCarritoGolf() > 0) {
 				if (carritoDelId != null && carritoDelId.getIdCarritoGolf() == carritoGolf.getIdCarritoGolf()) {
+					// Creamos la query sin el id
 					query = "INSERT INTO CARRITOGOLF (numSerie, marca, velocidadMax, armamento, municion) VALUES (?,?,?,?,?)";
 
 					PreparedStatement pstmt = con.prepareStatement(query);
 
+					// Metemos los datos en el prepared statement
 					pstmt.setString(1, carritoGolf.getNumSerie());
 					pstmt.setString(2, carritoGolf.getMarca());
 					pstmt.setInt(3, carritoGolf.getVelocidadMax());
@@ -78,10 +84,12 @@ public class CarritoGolfDAO {
 					else
 						return 0;
 				} else {
+					// Creamos la query con el id
 					query = "INSERT INTO CARRITOGOLF (idCarritoGolf, numSerie, marca, velocidadMax, armamento, municion) VALUES (?,?,?,?,?,?)";
 
 					PreparedStatement pstmt = con.prepareStatement(query);
 
+					// Metemos los datos en el prepared statement
 					pstmt.setInt(1, carritoGolf.getIdCarritoGolf());
 					pstmt.setString(2, carritoGolf.getNumSerie());
 					pstmt.setString(3, carritoGolf.getMarca());
@@ -121,7 +129,7 @@ public class CarritoGolfDAO {
 		try {
 			String query = "UPDATE CARRITOGOLF SET ";
 
-			// Comprobamos que el avestruz no es nulo.
+			// Comprobamos que el carrito no es nulo.
 			if (carritoGolf == null)
 				return -1;
 			// Comprobamos que los campos con string no son nulos
@@ -133,7 +141,7 @@ public class CarritoGolfDAO {
 
 			if (carritoGolf.getIdCarritoGolf() > 0) {
 				if (carritoDelId != null && carritoDelId.getIdCarritoGolf() == carritoGolf.getIdCarritoGolf()) {
-					// Creamos la query con
+					// Creamos la query con la condicion de que tenga el id del carrito dado
 					query += "numSerie = ?, marca = ?, velocidadMax = ?, armamento = ?, municion = ? WHERE idCarritoGolf = ?";
 
 					PreparedStatement pstmt = con.prepareStatement(query);
@@ -175,20 +183,26 @@ public class CarritoGolfDAO {
 	 */
 	public static CarritoGolfDO cargar(Connection con, int id) {
 		try {
+			// Creamos la query con la condicion de que tenga el id dado
 			String query = "SELECT * FROM CARRITOGOLF WHERE idCarritoGolf = ?";
 
 			PreparedStatement pstmt = con.prepareStatement(query);
 
+			// Metemos el id en el prepared statement
 			pstmt.setInt(1, id);
 
+			// Creamos el carrito que devolveremos
 			CarritoGolfDO carritoGolf = new CarritoGolfDO();
 
 			ResultSet rs = pstmt.executeQuery();
 
+			// Hacemos un bucle que pasara siempre que haya algo en el resultset
 			while (rs.next()) {
+				// Si el id es 0, devolvemos null para no hacer más código innecesariamente
 				if (rs.getInt(1) == 0)
 					return null;
 				else {
+					// Insertamos los datos en el carrito
 					carritoGolf.setIdCarritoGolf(rs.getInt(1));
 					carritoGolf.setNumSerie(rs.getString(2));
 					carritoGolf.setMarca(rs.getString(3));

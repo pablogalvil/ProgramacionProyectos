@@ -53,7 +53,7 @@ public class KoalaDAO {
 		try {
 			String query = "";
 
-			// Comprobamos que el avestruz no es nulo.
+			// Comprobamos que el koala no es nulo.
 			if (koala == null)
 				return -1;
 			// Comprobamos que los campos con string no son nulos
@@ -140,7 +140,7 @@ public class KoalaDAO {
 		try {
 			String query = "UPDATE KOALA SET ";
 
-			// Comprobamos que el avestruz no es nulo.
+			// Comprobamos que el koala no es nulo.
 			if (koala == null)
 				return -1;
 			// Comprobamos que los campos con string no son nulos

@@ -52,7 +52,7 @@ public class FrutaDAO {
 		try {
 			String query = "";
 
-			// Comprobamos que el avestruz no es nulo.
+			// Comprobamos que la fruta no es nulo.
 			if (fruta == null)
 				return -1;
 			// Comprobamos que los campos con string no son nulos
@@ -126,7 +126,7 @@ public class FrutaDAO {
 		try {
 			String query = "UPDATE FRUTA SET ";
 
-			// Comprobamos que el avestruz no es nulo.
+			// Comprobamos que la fruta no es nulo.
 			if (fruta == null)
 				return -1;
 			// Comprobamos que los campos con string no son nulos

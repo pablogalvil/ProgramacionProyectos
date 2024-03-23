@@ -9,7 +9,7 @@ import unidad4.model.ClienteDO;
 import unidad4.model.ModelCliente;
 import unidad4.model.ModelFactura;
 //Con este import podemos usar todas las clases del paquete utils
-import unidad4.utils.UtilsT;
+import unidad4.utils.UtilsBD;
 
 public class PruebasBD {
 
@@ -18,7 +18,7 @@ public class PruebasBD {
 
 		System.out.println("Intentamos conectar con BD");
 		// Ejecutamos la funcion de conexion
-		Connection con = UtilsT.conectarBD();
+		Connection con = UtilsBD.conectarBD();
 
 		try {
 

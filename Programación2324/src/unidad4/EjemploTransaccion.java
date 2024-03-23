@@ -5,13 +5,13 @@ import java.sql.SQLException;
 
 import unidad4.model.ClienteDO;
 import unidad4.model.ModelCliente;
-import unidad4.utils.UtilsT;
+import unidad4.utils.UtilsBD;
 
 public class EjemploTransaccion {
 
 	public static void main(String[] args) {
 
-		Connection con = UtilsT.conectarBD();
+		Connection con = UtilsBD.conectarBD();
 
 		// Cerramos la conexion
 		try {

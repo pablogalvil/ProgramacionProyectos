@@ -15,6 +15,22 @@ import unidad4.utils.UtilsBD;
 public class pruebas {
 
 	public static void main(String[] args) {
+		/*
+		 * FUNCIONES MYSQL PARA EL EXAMEN
+		 * 
+		 * SUBSTRING(String, posicion en la que empieza, longitud(opcional))
+		 * 
+		 * Devuelve la posicion de la primera letra de la substring
+		 * 
+		 * LOCATE (SubString, String, posicion en la que empieza (opcional))
+		 * 
+		 * POSITION (SubString IN String) (igual que locate)
+		 * 
+		 * CONCAT (String, String, String...)
+		 * 
+		 * CONCAT_WS (Separador, String, String, String...)
+		 */
+
 		// Las pruebas que he puesto son correctas e incorrectas la primera vez que las
 		// ejecutas, despues ya no saldran porque he insertado en sitios que ya estaban,
 		// pero igualmente puedes hacer drop database y volver a insertarla o cambiar

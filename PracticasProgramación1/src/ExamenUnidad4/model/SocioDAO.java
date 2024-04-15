@@ -127,7 +127,7 @@ public class SocioDAO {
 	 */
 	public static String nombreSocioRecord(Connection con) {
 		try {
-			String query = "SELECT S.nombre FROM CLUBGOLF_HAS_SOCIO CHS INNER JOIN SOCIO S ON CHS.idSocio = S.idSocio WHERE CHS.recordGolpes = (SELECT MIN(recordGolpes) FROM CLUBGOLF_HAS_SOCIO WHERE recordGolpes > 0)";
+			String query = "SELECT S.nombre FROM CLUBGOLF_HAS_SOCIO CHS INNER JOIN SOCIO S ON CHS.idSocio = S.idSocio WHERE CHS.recordGolpes = (SELECT MIN(recordGolpes) FROM CLUBGOLF_HAS_SOCIO)";
 
 			PreparedStatement pstmt = con.prepareStatement(query);
 
